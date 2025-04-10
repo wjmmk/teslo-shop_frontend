@@ -1,15 +1,18 @@
 <div class="card card-compact bg-base-100 shadow-xl animate-fadeIn">
   <figure>
-    <img
-      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-      alt="Shoes" />
+    <img [src]="product().images | productImage" [alt]="product().title" />
   </figure>
   <div class="card-body">
-    <h2 class="card-title">Shoes!</h2>
-    <p>If a dog chews shoes whose shoes does he choose?</p>
+    <h2
+      [routerLink]="['/product', product().slug]"
+      class="card-title font-montserrat text-sky-500 text-lg hover:underline link-secondary">{{product().title }}
+    </h2>
+    <p>{{ product().description | slice: 0:70 }} ...</p>
     <div class="card-actions justify-end">
       <!-- <button class="btn btn-primary hover:bg-violet-500">Buy Now</button> -->
-       <a [routerLink]="['/product', 't-shirt']" routerLinkActive="router-link-active" class="link link-secondary">Ver producto</a>
+      <a [routerLink]="['/product', product().slug]" routerLinkActive="router-link-active"
+        class="link link-secondary text-slate-300 card-title font-montserrat">Ir al Producto
+      </a>
     </div>
   </div>
 </div>
