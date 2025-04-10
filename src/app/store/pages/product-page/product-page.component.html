@@ -8,15 +8,15 @@
 @if(productResource.hasValue()) {
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
     <!-- carrucel de Imagenes -->
-     <p>Imagenes</p>
+     <product-carousel [images]="productResource.value()!.images" />
 
     <div>
       <h2 class="test-2xl font-bold font-montserrat">
-        {{ productResource.value().title }}
+        {{ productResource.value()!.title }}
       </h2>
       <div class="divider"></div>
 
-      <p>{{ productResource.value().description }}</p>
+      <p>{{ productResource.value()!.description }}</p>
     </div>
   </div>
 }

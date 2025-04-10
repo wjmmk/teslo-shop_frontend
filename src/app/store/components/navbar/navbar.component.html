@@ -46,21 +46,39 @@
       <span class="text-secondary">| Shop.</span>
     </a>
   </div>
+
   <div class="navbar-center hidden lg:flex font-montserrat">
     <ul class="menu menu-horizontal px-1">
-      <li><a>Hombres</a></li>
       <li>
-        <details>
-          <summary>Mujeres</summary>
-          <ul class="p-2">
-            <li><a>Submenu</a></li>
-          </ul>
-        </details>
+        <a
+          routerLink="/gender/men"
+          class="btn btn-ghost"
+          routerLinkActive="text-secondary"
+        >
+          Hombres
+        </a>
       </li>
-      <li><a>Niños</a></li>
+      <li>
+        <a
+          routerLink="/gender/women"
+          class="btn btn-ghost"
+          routerLinkActive="text-secondary"
+        >
+          Mujeres
+        </a>
+      </li>
+      <li>
+        <a
+          routerLink="/gender/kid"
+          class="btn btn-ghost"
+          routerLinkActive="text-secondary"
+        >
+          Niños
+        </a>
+      </li>
     </ul>
   </div>
   <div class="navbar-end font-montserrat">
-    <a class="btn">Button</a>
+    <a class="btn btn-primary">Button</a>
   </div>
 </div>
