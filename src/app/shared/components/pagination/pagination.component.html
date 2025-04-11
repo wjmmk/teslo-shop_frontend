@@ -1,0 +1,18 @@
+<div class="join flex justify-center items-center mt-4 pb-5">
+
+  @for (page of getPageList(); track page) {
+    <input
+      class="join-item btn btn-square"
+      type="radio"
+      name="options"
+      [routerLink]="[]"
+      [queryParams]="{ page: page} "
+      [attr.aria-label]="page"
+      [checked]="page === currentPage()"
+      (click)="activePage.set(page)"
+    />
+
+  }
+
+  @empty { <p>NO hay Páginas a mostrar.</p> }
+</div>
