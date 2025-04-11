@@ -10,3 +10,9 @@
   }
 </section>
 
+<section>
+  <shared-pagination
+    [pages]="productsResource.value()?.pages ?? 0"
+    [currentPage]="paginationService.currentPage()"
+  />
+</section>
