@@ -4,11 +4,12 @@ import { ProductCardComponent } from '@products/components/product-card/product-
 import { ProductsService } from '@products/services/products.service';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { PaginationService } from '@shared/components/pagination/pagination.service';
+import { FooterComponent } from '@store/components/footer/footer.component';
 
 
 @Component({
     selector: 'app-home-page',
-    imports: [ProductCardComponent, PaginationComponent],
+    imports: [ProductCardComponent, PaginationComponent, FooterComponent],
     templateUrl: './home-page.component.html'
 })
 export class HomePageComponent {
