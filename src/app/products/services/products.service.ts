@@ -28,7 +28,7 @@ export class ProductsService {
       params: { limit, offset, gender }
     })
     .pipe(
-      tap((products) => console.log('Productos de la Tienda: ', products)),
+      //tap((products) => console.log('Productos de la Tienda: ', products)),
       tap((resp) => this.productsCache.set(key, resp))
     )
   }
