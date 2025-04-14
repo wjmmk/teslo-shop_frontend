@@ -4,6 +4,7 @@ import { HomePageComponent } from "./pages/home-page/home-page.component";
 import { GenderPageComponent } from "./pages/gender-page/gender-page.component";
 import { ProductPageComponent } from "./pages/product-page/product-page.component";
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
+import { AboutComponent } from "./pages/about/about.component";
 
 
 export const stroreRoutes: Routes = [
@@ -14,6 +15,10 @@ export const stroreRoutes: Routes = [
       {
         path: "",
         component: HomePageComponent
+      },
+      {
+        path: "about",
+        component: AboutComponent
       },
       {
         path: "gender/:gender",
