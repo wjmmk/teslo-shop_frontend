@@ -16,7 +16,7 @@ export class ProductsService {
   private productCache = new Map<string, Product>();
 
   getAllProducts(options: Options):Observable<ProductsResponse> {
-    const { limit = 9, offset = 0, gender = '' } = options;
+    const { limit = 12, offset = 0, gender = '' } = options;
 
     const key = `${limit}-${offset}-${gender}`; // Esto me crea una llave para ser utilizada en el caché-
 
