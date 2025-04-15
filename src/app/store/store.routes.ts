@@ -14,18 +14,22 @@ export const stroreRoutes: Routes = [
     children: [
       {
         path: "",
+        title: 'Inicio',
         component: HomePageComponent
       },
       {
         path: "about",
+        title: 'Nosotros',
         component: AboutComponent
       },
       {
         path: "gender/:gender",
+        title: 'Categoria',
         component: GenderPageComponent
       },
       {
         path: "product/:idSlug",
+        title: 'Producto',
         component: ProductPageComponent
       },
       {
