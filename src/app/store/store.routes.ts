@@ -37,10 +37,6 @@ export const stroreRoutes: Routes = [
         component: NotFoundPageComponent
       }
     ]
-  },
-  {
-    path: "**",
-    redirectTo: "",
   }
 ]
 
