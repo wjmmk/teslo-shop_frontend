@@ -1,7 +1,7 @@
 
 <nav class="bg-white border-gray-200 dark:bg-gray-900 my-2">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
-    <a routerLink="/" class="btn btn- text-xl -ml-1 shadow-indigo-500 font-montserrat">
+    <a routerLink="/" class="btn border-6 text-xl -ml-1 shadow-indigo-500 font-montserrat">
       Teslo
       <span class="text-secondary cursor-progress">| Shop.</span>
     </a>
@@ -49,6 +49,38 @@
           >Niños</a>
         </li>
       </ul>
+    </div>
+    <div class="justify-end gap-4">
+      @if (authServices.authStatus() === 'authenticated') {
+        <button
+          type="button"
+          class="btn btn-ghost border-4 border-indigo-500/75 mr-2 shadow-2xl shadow-cyan-500/50 group
+                 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100"
+          (click)="''"
+        >
+          <span class="badge badge-secondary font-bold text-green-950 bg-gradient-to-r group-hover:text-white"
+          >{{ authServices.user()?.fullName }}</span>
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-ghost border-4 border-x-indigo-500 shadow-2xl shadow-cyan-500/50 group
+                 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100"
+          (click)="authServices.logout()"
+        >
+          <span class="badge badge-secondary font-bold text-green-950 bg-gradient-to-r group-hover:text-white">Salir</span>
+        </button>
+      } @else if (authServices.authStatus() === 'not-authenticated') {
+        <a routerLink="/auth/login" class="shadow-2xl">Login</a>
+      } @else {
+        <a
+          routerLink="/auth/register"
+          class="btn btn-ghost border-4 border-indigo-500/75 shadow-2xl shadow-cyan-500/50 group
+                 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100"
+        >
+          <span class="badge badge-secondary font-bold text-green-950 bg-gradient-to-r group-hover:text-white">Regístrese</span>
+          </a>
+      }
     </div>
   </div>
 </nav>
