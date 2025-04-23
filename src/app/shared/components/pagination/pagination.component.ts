@@ -4,8 +4,16 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'shared-pagination',
   imports: [RouterLink],
-  templateUrl: './pagination.component.html'
+  templateUrl: './pagination.component.html',
+  styles: `
+     input[type="radio"].btn:focus {
+     color: white;
+            }
+     input[type="radio"].btn:checked {
+     color: white;
+    } `,
 })
+
 export class PaginationComponent {
   pages = input(0);
   currentPage = input<number>(1);
