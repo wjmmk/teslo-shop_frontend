@@ -26,6 +26,7 @@ export class LoginPageComponent {
   onLogin() {
     if (this.loginForm.invalid) {
       this.hasError.set(true);
+      this.loginForm.reset();
       setTimeout(() => {
         this.hasError.set(false);
       }, 3000);
