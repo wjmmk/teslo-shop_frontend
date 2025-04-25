@@ -10,10 +10,10 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(  // permite usar fetch en las peticiones.
+    provideHttpClient(  // permite realizar peticiones asyncronas hacia el servidor.
       withFetch(),
       withInterceptors([
-        // interceptor para logear las peticiones http
+        // interceptors para loggear las peticiones https.
         loggingInterceptor,
         authInterceptor
       ])
