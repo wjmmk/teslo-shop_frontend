@@ -1,8 +1,18 @@
 
 <h1 class="text-3xl font-bold font-montserrat">Todos los Productos</h1>
-<h5 class="text-xl">Para todos los gustos
-  <span class="text-accent">{{gender()}}.</span>
-</h5>
+@if (gender() === 'kid') {
+  <h5 class="text-xl">Para todos los gustos
+    <span class="text-amber-200">{{gender()}}.</span>
+  </h5>
+} @else if (gender() === 'women'){
+  <h5 class="text-xl">Para todos los gustos
+    <span class="text-fuchsia-400">{{gender()}}.</span>
+  </h5>
+} @else {
+  <h5 class="text-xl">Para todos los gustos
+    <span class="text-sky-500">{{gender()}}.</span>
+  </h5>
+}
 
 <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-2 gap-3">
   @for (product of productsResource.value()?.products; track $index) {
