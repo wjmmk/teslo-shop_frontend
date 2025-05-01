@@ -9,7 +9,6 @@ import { authInterceptor } from '@auth/interceptors/auth.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    //provideRouter(routes),
     provideRouter(routes, withHashLocation()), // Para el despliegue.
     provideHttpClient(  // permite realizar peticiones asyncronas hacia el servidor.
       withFetch(),
