@@ -11,10 +11,12 @@ const adminDashboardRoutes: Routes = [
     children: [
       {
         path: 'products',
+        title: 'Products',
         component: ProductsAdminPageComponent
       },
       {
         path: 'products/:id',
+        title: 'Product by id',
         component: ProductAdminPageComponent
       },
       {
