@@ -1,11 +1,11 @@
 <div class="card card-compact bg-base-100 shadow-xl animate-fadeIn">
-  <figure>
+  <figure [routerLink]="['/product', product().slug]" class="cursor-pointer">
     <img [src]="product().images | productImage" [alt]="product().title" />
   </figure>
   <div class="card-body">
     <h2
       [routerLink]="['/product', product().slug]"
-      class="card-title font-montserrat text-sky-500 text-lg hover:underline link-secondary line-clamp-1">{{product().title }}
+      class="card-title cursor-pointer font-montserrat text-sky-500 text-lg hover:underline link-secondary line-clamp-1">{{product().title }}
     </h2>
     <p>{{ product().description | slice: 0:70 }} ...</p>
     <div class="card-actions justify-end">
