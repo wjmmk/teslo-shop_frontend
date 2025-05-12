@@ -30,7 +30,7 @@ export class HomePageComponent implements OnInit {
       this.isLoading = true;
       this.hasError = false;
 
-      return timer(10000) // le damos un pequeño delay para efecto visual suave
+      return timer(7000) // le damos un pequeño delay para efecto visual suave
         .pipe(
           switchMap(() =>
             this.productsService.getAllProducts({ offset: request.page * 9 }).pipe(
