@@ -28,4 +28,12 @@ export class NavbarComponent {
     }
   }
 
+  closeMenu() {
+    this.isMenuOpen = false;
+    // Mostrar los botones login y registrarse
+    const loginButton = document.getElementById('login');
+    const registerButton = document.getElementById('register');
+    loginButton?.classList.remove('hidden');
+    registerButton?.classList.remove('hidden');
+  }
 }
