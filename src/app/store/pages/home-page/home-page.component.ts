@@ -1,42 +1,39 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductCardSkeletonComponent } from '@products/components/product-card-skeleton/product-card-skeleton.component';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
 import { ProductsService } from '@products/services/products.service';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { PaginationService } from '@shared/components/pagination/pagination.service';
-import { catchError, finalize, switchMap, throwError, timeout, timer } from 'rxjs';
+import { timer, throwError } from 'rxjs';
+import { catchError, finalize, switchMap, timeout } from 'rxjs/operators';
+
 
 @Component({
-    selector: 'home-page',
-    imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent, CommonModule],
-    templateUrl: './home-page.component.html'
+  selector: 'app-product-list',
+  imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent],
+  templateUrl: './home-page.component.html',
 })
-export class HomePageComponent implements OnInit {
-  public isLoading = signal(true);
-  public hasError = signal(false);
+export class HomePageComponent  {
+  readonly isLoading = signal(true);
+  readonly hasError = signal(false);
 
   productsService = inject(ProductsService);
-  paginationService = inject(PaginationService)
+  paginationService = inject(PaginationService);
 
-  ngOnInit() {
-    this.productsService.getAllProducts({ offset: 9 });
-  }
-
-  productsResource = rxResource({
+  readonly productsResource = rxResource({
     request: () => ({ page: this.paginationService.currentPage() - 1 }),
     loader: ({ request }) => {
-      this.isLoading();
-      this.hasError();
+      this.isLoading.set(true);
+      this.hasError.set(false);
 
-      return timer(7000) // le damos un pequeño delay para efecto visual suave
+      return timer(0) // ✅ delay ligero para UX
         .pipe(
           switchMap(() =>
             this.productsService.getAllProducts({ offset: request.page * 9 }).pipe(
-              timeout(30000), // ⏰ espera máxima de 30 segundos
+              timeout(10000), // ✅ tiempo razonable para producción
               catchError((error) => {
-                this.hasError();
+                this.hasError.set(true);
                 return throwError(() => error);
               }),
               finalize(() => {
