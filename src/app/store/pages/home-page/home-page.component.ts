@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductCardSkeletonComponent } from '@products/components/product-card-skeleton/product-card-skeleton.component';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
@@ -14,8 +14,8 @@ import { catchError, finalize, switchMap, throwError, timeout, timer } from 'rxj
     templateUrl: './home-page.component.html'
 })
 export class HomePageComponent implements OnInit {
-  isLoading = true;
-  hasError = false;
+  public isLoading = signal(true);
+  public hasError = signal(false);
 
   productsService = inject(ProductsService);
   paginationService = inject(PaginationService)
@@ -27,8 +27,8 @@ export class HomePageComponent implements OnInit {
   productsResource = rxResource({
     request: () => ({ page: this.paginationService.currentPage() - 1 }),
     loader: ({ request }) => {
-      this.isLoading = true;
-      this.hasError = false;
+      this.isLoading();
+      this.hasError();
 
       return timer(7000) // le damos un pequeño delay para efecto visual suave
         .pipe(
@@ -36,11 +36,11 @@ export class HomePageComponent implements OnInit {
             this.productsService.getAllProducts({ offset: request.page * 9 }).pipe(
               timeout(30000), // ⏰ espera máxima de 30 segundos
               catchError((error) => {
-                this.hasError = true;
+                this.hasError();
                 return throwError(() => error);
               }),
               finalize(() => {
-                this.isLoading = false;
+                this.isLoading.set(false);
               })
             )
           )
