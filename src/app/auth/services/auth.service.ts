@@ -32,6 +32,7 @@ export class AuthService {
 
   user = computed<User | null>(() => this._user());
   token = computed<string | null>(() => this._token());
+  isAdmin = computed<boolean>(() => this._user()?.roles.includes('admin') ?? false);
 
   login(email: string, password: string): Observable<boolean> {
     return this.http.post<AuthResponse>(`${baseUrl}/auth/login`, { email, password })
@@ -53,7 +54,10 @@ export class AuthService {
 
   checkStatus(): Observable<boolean> {
     const token = localStorage.getItem('token');
-    if(!token) return of(false);
+    if(!token) {
+      this.logout();
+      return of(false);
+    }
 
     return this.http.get<AuthResponse>(`${baseUrl}/auth/check-status`)
     .pipe(
