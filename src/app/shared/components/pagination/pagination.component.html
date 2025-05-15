@@ -1,16 +1,16 @@
-<div class="join flex justify-center items-center mt-4 py-5">
+<div class="join flex justify-center items-center">
 
   @for (page of getPageList(); track page) {
     <input
-    class="join-item btn btn-lg btn-square focus:text-white checked:text-white"
-    type="radio"
-    name="options"
-    [routerLink]="[]"
-    [queryParams]="{ page: page} "
-    [attr.aria-label]="page"
-    [value]="page"
-    [checked]="page === currentPage()"
-    (click)="activePage.set(page)"
+      class="join-item btn btn-lg btn-square focus:text-white checked:text-white"
+      type="radio"
+      name="options"
+      [routerLink]="[]"
+      [queryParams]="{ page: page} "
+      [attr.aria-label]="page"
+      [value]="page"
+      [checked]="page === currentPage()"
+      (click)="activePage.set(page)"
     />
 
   }
