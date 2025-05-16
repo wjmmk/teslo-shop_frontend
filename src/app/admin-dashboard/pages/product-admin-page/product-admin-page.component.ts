@@ -22,6 +22,8 @@ export class ProductAdminPageComponent {
     )
   );
 
+  // Traemos la informacion del producto por id y se le pasa al Componente Product-Details.
+  // Se puede usar el rxResource para manejar el estado de carga y error.
   productResource = rxResource({
     request: () => ({ id: this.productId() }),
     loader: ({ request }) => {
