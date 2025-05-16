@@ -11,7 +11,8 @@
       "@auth/*": ["./src/app/auth/*"],
       "@products/*": ["./src/app/products/*"],
       "@dashboard/*": ["./src/app/admin-dashboard/*"],
-      "@store/*": ["./src/app/store/*"]
+      "@store/*": ["./src/app/store/*"],
+      "@utils/*": ["./src/app/utils/*"],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
