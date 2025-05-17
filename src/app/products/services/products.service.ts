@@ -9,6 +9,7 @@ import { delay, Observable, of, tap } from 'rxjs';
 const baseUrl = environment.baseUrl;
 
 @Injectable({providedIn: 'root'})
+
 export class ProductsService {
   private http = inject(HttpClient);
 
@@ -50,8 +51,9 @@ export class ProductsService {
     }
     return this.http.get<Product>(`${baseUrl}/products/${id}`)
     .pipe(
-     // delay(2000),
       tap((product) => this.productCache.set(id, product))
     )
   }
+
+  updateProduct(productLike: Partial<Product>) {}
 }
