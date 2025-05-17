@@ -2,17 +2,20 @@ import { Component, inject, input, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductCarouselComponent } from '@products/components/product-carousel/product-carousel.component';
 import { Product } from '@products/interfaces/product.interface';
+import { ProductsService } from '@products/services/products.service';
+import { FormErrorLabelComponent } from '@shared/components/form-error-label/form-error-label.component';
 import { FormUtils } from 'src/app/Utils/form-utils';
 
 @Component({
   selector: 'product-details',
-  imports: [ProductCarouselComponent, ReactiveFormsModule],
+  imports: [ProductCarouselComponent, ReactiveFormsModule, FormErrorLabelComponent],
   templateUrl: './product-details.component.html'
 })
 export class ProductDetailsComponent implements OnInit {
 
   product = input.required<Product>();
   fb = inject(FormBuilder);
+  productsService = inject(ProductsService);
 
   sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
@@ -22,8 +25,8 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   productForm = this.fb.group({
-    title: [''],
-    description: [''],
+    title: ['', Validators.required],
+    description: ['', Validators.required],
     slug: [
       '',
       [Validators.required, Validators.pattern(FormUtils.slugPattern)]
@@ -43,6 +46,18 @@ export class ProductDetailsComponent implements OnInit {
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
       return;
+    } else {
+      const formValue = this.productForm.value;
+
+      const productLike: Partial<Product> = {
+        ...(formValue as any),
+        tags: formValue.tags
+          ?.toLowerCase()
+          .split(', ')
+          .map((tag) => tag.trim()) ?? []
+      };
+      console.log('Product-Details: ', productLike);
+      this.productsService.updateProduct(productLike);
     }
   }
 
