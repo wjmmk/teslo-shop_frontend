@@ -17,7 +17,6 @@ export class ProductDetailsComponent implements OnInit {
   fb = inject(FormBuilder);
   productsService = inject(ProductsService);
 
-  sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
   ngOnInit(): void {
     this.setFormValue(this.product());
@@ -32,7 +31,7 @@ export class ProductDetailsComponent implements OnInit {
       [Validators.required, Validators.pattern(FormUtils.slugPattern)]
     ],
     price: [0, [Validators.required, Validators.min(0)]],
-    inStock: [0, [Validators.required, Validators.min(0)]],
+    stock: [0, [Validators.required, Validators.min(0)]],
     sizes: [['']],
     images: [[]],
     tags: [''],
@@ -42,22 +41,25 @@ export class ProductDetailsComponent implements OnInit {
     ],
   });
 
+  sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+
   onSubmit() {
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
       return;
     } else {
       const formValue = this.productForm.value;
-
       const productLike: Partial<Product> = {
         ...(formValue as any),
         tags: formValue.tags
           ?.toLowerCase()
-          .split(', ')
+          .split(',')
           .map((tag) => tag.trim()) ?? []
       };
+
       console.log('Product-Details: ', productLike);
-      this.productsService.updateProduct(productLike);
+      this.productsService.updateProduct(this.product().id, productLike)
+        .subscribe((product) => { console.log('Producto Actualizado!!!', product) })
     }
   }
 

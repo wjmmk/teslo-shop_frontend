@@ -47,10 +47,10 @@
       </div>
 
       <div>
-        <input type="number" placeholder="Inventario" class="input input-bordered w-full" formControlName="inStock"
-          [class.border-red-300]="productForm.get('inStock')?.errors ?? false" />
+        <input type="number" placeholder="Inventario" class="input input-bordered w-full" formControlName="stock"
+          [class.border-red-300]="productForm.get('stock')?.errors ?? false" />
         <!-- Control para el manejo de errores -->
-        <form-error-label [control]="productForm.get('inStock')! " />
+        <form-error-label [control]="productForm.get('stock')! " />
       </div>
 
     </div>
