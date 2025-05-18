@@ -1,7 +1,7 @@
 <div class="navbar bg-white rounded-lg shadow-md lg:px-4">
-  <div class="navbar-start flex-1 flex items-center">
-    <div class="dropdown bg-violet-950 rounded-lg lg:hidden md:hidden xl:hidden border-4 mr-2 border-indigo-500/75">
-      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden md:hidden" (click)="toggleMenu()">
+  <div class="navbar-start flex-1">
+    <div class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost bg-violet-950 rounded-lg lg:hidden md:hidden xl:hidden border-4 mr-2 border-indigo-500/75" (click)="toggleMenu()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
           <path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
         </svg>
@@ -15,8 +15,8 @@
     </a>
     </div>
   </div>
-  <div class="navbar-center flex-1 hidden lg:flex text-lg" [ngClass]="{ 'block': isMenuOpen, 'hidden': !isMenuOpen }">
-    <ul class="flex font-medium flex-col border border-gray-100 bg-white md:flex-row md:space-x-8
+  <div class="navbar-center lg:flex" [ngClass]="{ 'block': isMenuOpen, 'hidden': !isMenuOpen }">
+    <ul class="flex font-medium flex-col border border-gray-100 bg-white md:flex-row md:space-x-2
                  rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
       <li class="flex items-center transition ease-in-out hover:-translate-y-1 hover:scale-110 ">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 mr-2">
@@ -71,19 +71,21 @@
       </li>
     </ul>
   </div>
-  <div class="navbar-end justify-end flex-1 lg:flex gap-2">
+  <div class="navbar-end flex-1 lg:flex space-x-2 justify-end">
 
-    <!-- <a routerLink="/admin" class="btn text-accent">Admin Panel</a>> -->
+   @if (authServices.isAdmin()) {
+    <a id="admin" routerLink="/admin" class="btn text-accent">Admin Panel</a>
+    }
 
     @if (authServices.authStatus() === 'authenticated') {
-      <button type="button" class="btn btn-ghost border-4 border-indigo-500/75 mr-2 shadow-2xl shadow-cyan-500/50 group
+      <button id="user" type="button" class="btn btn-ghost border-4 border-indigo-500/75 mr-2 shadow-2xl shadow-cyan-500/50 group
                 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100"
         (click)="''">
         <span class="badge badge-secondary font-bold text-green-950 bg-gradient-to-r group-hover:text-white">{{
           authServices.user()?.fullName }}</span>
       </button>
 
-      <button type="button" class="btn btn-ghost border-4 border-x-indigo-500 shadow-2xl shadow-cyan-500/50 group
+      <button id="salir" type="button" class="btn btn-ghost border-4 border-x-indigo-500 shadow-2xl shadow-cyan-500/50 group
                 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100"
         (click)="authServices.logout()">
         <span class="badge badge-secondary font-bold text-green-950 bg-gradient-to-r group-hover:text-white">Salir</span>
