@@ -14,7 +14,7 @@ export class ProductsService {
   private http = inject(HttpClient);
 
   private productsCache = new Map<string, ProductsResponse>();
-  private productCache = new Map<string, Product>();
+  private productCache = new Map<string, Product>(); // Esto recibe en el primer parametro un (id). (11111: ⬇)
 
   getAllProducts(options: Options):Observable<ProductsResponse> {
     const { limit = 12, offset = 0, gender = '' } = options;
@@ -55,5 +55,21 @@ export class ProductsService {
     )
   }
 
-  updateProduct(productLike: Partial<Product>) {}
+  updateProduct(id: string, productLike: Partial<Product>): Observable<Product> {
+    return this.http.patch<Product>(`${baseUrl}/products/${id}`, productLike)
+      .pipe(tap((product) => this.updateProductCache(product)));
+  }
+
+  updateProductCache(product: Product) {
+    const productId = product.id;
+    // Aqui se aplica la actulizacion del Producto basados en la estrategia Caché sin que toque Refrescas la vista. (11111: ⬆)
+    this.productCache.set(productId, product);
+
+    // Actualizacion del ProductResponse.
+    this.productsCache.forEach((productResponse) => {
+      productResponse.products = productResponse.products.map(
+        (currentProduct) => currentProduct.id === productId  ?  product  :  currentProduct
+      );
+    });
+  }
 }
