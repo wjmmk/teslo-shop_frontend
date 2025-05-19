@@ -1,22 +1,27 @@
-<div class="navbar bg-white rounded-lg shadow-md lg:px-4">
+<div class="navbar bg-white rounded-lg shadow-md lg:px-4 justify-evenly">
   <div class="navbar-start flex-1">
     <div class="dropdown">
-      <div tabindex="0" role="button" class="btn btn-ghost bg-violet-950 rounded-lg lg:hidden md:hidden xl:hidden border-4 mr-2 border-indigo-500/75" (click)="toggleMenu()">
+      <div tabindex="0" role="button"
+        class="btn btn-ghost bg-violet-950 rounded-lg lg:hidden md:hidden xl:hidden border-4 mr-2 border-indigo-500/75"
+        (click)="toggleMenu()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-          <path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+          <path fill-rule="evenodd"
+            d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
+            clip-rule="evenodd" />
         </svg>
       </div>
     </div>
     <div class="lg:flex md:flex xl:flex hidden flex-grow ">
       <a routerLink="/"
-      class="btn text-xl mx-2 shadow-indigo-500 font-montserrat transition ease-in-out hover:-translate-y-1 hover:scale-110">
-      Teslo
-      <span class="text-secondary cursor-progress">| Shop.</span>
-    </a>
+        class="btn text-xl mx-2 shadow-indigo-500 font-montserrat transition ease-in-out hover:-translate-y-1 hover:scale-110">
+        Teslo
+        <span class="text-secondary cursor-progress">| Shop.</span>
+      </a>
     </div>
   </div>
-  <div class="navbar-center lg:flex" [ngClass]="{ 'block': isMenuOpen, 'hidden': !isMenuOpen }">
-    <ul class="flex font-medium flex-col border border-gray-100 bg-white md:flex-row md:space-x-2
+  <div class="navbar-center hidden lg:flex" [ngClass]="{ 'block': isMenuOpen, 'hidden': !isMenuOpen }">
+    <ul
+      class="flex font-medium flex-col border border-gray-100 bg-white md:flex-row md:space-x-2
                  rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
       <li class="flex items-center transition ease-in-out hover:-translate-y-1 hover:scale-110 ">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 mr-2">
@@ -25,8 +30,8 @@
           <path
             d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z" />
         </svg>
-        <a routerLink="" routerLinkActive="text-secondary" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()"
-           class="text-gray-900 rounded-sm hover:bg-white md:hover:bg-transparent md:border-0
+        <a routerLink="" routerLinkActive="text-secondary" [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()" class="text-gray-900 rounded-sm hover:bg-white md:hover:bg-transparent md:border-0
                     md:hover:text-blue-700 md:p-0 ">Inicio</a>
       </li>
       <li class="flex items-center transition ease-in-out hover:-translate-y-1 hover:scale-110">
@@ -38,7 +43,7 @@
             d="M3 18.4v-2.796a4.3 4.3 0 0 0 .713.31A26.226 26.226 0 0 0 12 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 0 1-6.477-.427C4.047 21.128 3 19.852 3 18.4Z" />
         </svg>
         <a routerLink="/gender/men" routerLinkActive="text-secondary" (click)="closeMenu()"
-           class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-white md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Hombres</a>
+          class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-white md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Hombres</a>
       </li>
       <li class="flex items-center transition ease-in-out hover:-translate-y-1 hover:scale-110">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -47,7 +52,7 @@
             d="M8 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m-.5 12.25V12h1v3.25a.75.75 0 0 0 1.5 0V12h1l-1-5v-.215a.285.285 0 0 1 .56-.078l.793 2.777a.711.711 0 1 0 1.364-.405l-1.065-3.461A3 3 0 0 0 8.784 3.5H7.216a3 3 0 0 0-2.868 2.118L3.283 9.079a.711.711 0 1 0 1.365.405l.793-2.777a.285.285 0 0 1 .56.078V7l-1 5h1v3.25a.75.75 0 0 0 1.5 0Z" />
         </svg>
         <a routerLink="/gender/women" routerLinkActive="text-secondary" (click)="closeMenu()"
-           class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-white md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Mujeres</a>
+          class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-white md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Mujeres</a>
       </li>
       <li class="flex items-center transition ease-in-out hover:-translate-y-1 hover:scale-110">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -56,7 +61,7 @@
             d="M9 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-.39l1.4 7a2.5 2.5 0 1 1-.98.195l-.189-.938-2.43 3.527A.5.5 0 0 1 9.5 13H4.95a2.5 2.5 0 1 1 0-1h4.287l2.831-4.11L11.09 3H9.5a.5.5 0 0 1-.5-.5M3.915 12a1.5 1.5 0 1 0 0 1H2.5a.5.5 0 0 1 0-1zm8.817-.789A1.499 1.499 0 0 0 13.5 14a1.5 1.5 0 0 0 .213-2.985l.277 1.387a.5.5 0 0 1-.98.196z" />
         </svg>
         <a routerLink="/gender/kid" routerLinkActive="text-secondary" (click)="closeMenu()"
-           class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-white md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Niños</a>
+          class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-white md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Niños</a>
       </li>
       <li class="flex items-center transition ease-in-out hover:-translate-y-1 hover:scale-110">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 mr-2">
@@ -67,40 +72,41 @@
             d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
         </svg>
         <a routerLink="/about" routerLinkActive="text-secondary" (click)="closeMenu()"
-           class="block py-2 px-3 text-gray-900 xs:text-xs xs:text-center rounded-sm hover:bg-white md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Nosotros</a>
+          class="block py-2 px-3 text-gray-900 xs:text-xs xs:text-center rounded-sm hover:bg-white md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 ">Nosotros</a>
       </li>
     </ul>
   </div>
   <div class="navbar-end flex-1 lg:flex space-x-2 justify-end">
 
-   @if (authServices.isAdmin()) {
+    @if (authServices.isAdmin()) {
     <a id="admin" routerLink="/admin" class="btn text-accent">Admin Panel</a>
     }
 
     @if (authServices.authStatus() === 'authenticated') {
-      <button id="user" type="button" class="btn btn-ghost border-4 border-indigo-500/75 mr-2 shadow-2xl shadow-cyan-500/50 group
+    <button id="user" type="button" class="btn btn-ghost border-4 border-indigo-500/75 mr-2 shadow-2xl shadow-cyan-500/50 group
                 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100"
-        (click)="''">
-        <span class="badge badge-secondary font-bold text-green-950 bg-gradient-to-r group-hover:text-white">{{
-          authServices.user()?.fullName }}</span>
-      </button>
+      (click)="''">
+      <span class="badge badge-secondary font-bold text-green-950 bg-gradient-to-r group-hover:text-white">{{
+        authServices.user()?.fullName }}</span>
+    </button>
 
-      <button id="salir" type="button" class="btn btn-ghost border-4 border-x-indigo-500 shadow-2xl shadow-cyan-500/50 group
+    <button id="salir" type="button" class="btn btn-ghost border-4 border-x-indigo-500 shadow-2xl shadow-cyan-500/50 group
                 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100"
-        (click)="authServices.logout()">
-        <span class="badge badge-secondary font-bold text-green-950 bg-gradient-to-r group-hover:text-white">Salir</span>
-      </button>
+      (click)="authServices.logout()">
+      <span class="badge badge-secondary font-bold text-green-950 bg-gradient-to-r group-hover:text-white">Salir</span>
+    </button>
     } <!-- @else (authServices.authStatus() === 'not-authenticated') { -->
     @else {
-      <a id="login" routerLink="/auth/register" class="btn btn-ghost border-4 mr-2 border-indigo-500/75 shadow-2xl shadow-indigo-500 group
+    <a id="login" routerLink="/auth/register" class="btn btn-ghost border-4 mr-2 border-indigo-500/75 shadow-2xl shadow-indigo-500 group
                 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100">
-        <span class="badge badge-secondary font-bold text-sky-900 bg-gradient-to-r group-hover:text-white">Regístrese</span>
-      </a>
-      <!-- Separacion de Botones para Usuarios No-Autenticados-->
-      <a id="register" routerLink="/auth/login" class="shadow-2xl" class="btn btn-ghost border-4 border-x-indigo-500 shadow-2xl shadow-indigo-500 group
+      <span
+        class="badge badge-secondary font-bold text-sky-900 bg-gradient-to-r group-hover:text-white">Regístrese</span>
+    </a>
+    <!-- Separacion de Botones para Usuarios No-Autenticados-->
+    <a id="register" routerLink="/auth/login" class="shadow-2xl" class="btn btn-ghost border-4 border-x-indigo-500 shadow-2xl shadow-indigo-500 group
                 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100">
-        <span class="badge badge-secondary font-bold text-sky-900 bg-gradient-to-r group-hover:text-white">Login</span>
-      </a>
+      <span class="badge badge-secondary font-bold text-sky-900 bg-gradient-to-r group-hover:text-white">Login</span>
+    </a>
     }
 
   </div>
