@@ -1,12 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { User } from '@auth/interfaces/user.interface';
 import { environment } from '@environments/environment';
-import { Product, ProductsResponse } from '@products/interfaces/product.interface';
+import { Gender, Product, ProductsResponse } from '@products/interfaces/product.interface';
 import { Options } from '@products/interfaces/product.option.interface';
 import { delay, Observable, of, tap } from 'rxjs';
 
 
 const baseUrl = environment.baseUrl;
+
+const emtyProduct: Product = {
+  id: 'new',
+  title: '',
+  price: 0,
+  description: '',
+  slug: '',
+  stock: 0,
+  sizes: [],
+  gender: Gender.Men,
+  tags: [],
+  images: [],
+  user: {} as User
+}
 
 @Injectable({providedIn: 'root'})
 
@@ -46,6 +61,8 @@ export class ProductsService {
   }
 
   getProductById(id: string):Observable<Product> {
+    if(id === 'new') return of(emtyProduct); // Esto es para que no me de error al momento de crear un nuevo producto.
+
     if(this.productCache.has(id)) {
       return of(this.productCache.get(id)!);
     }
@@ -72,4 +89,22 @@ export class ProductsService {
       );
     });
   }
+
+  createProduct(productLike: Partial<Product>): Observable<Product> {
+    return this.http.post<Product>(`${baseUrl}/products`, productLike)
+      .pipe(
+        tap((product) => {
+          this.productCache.set(product.id, product);
+          this.productsCache.forEach((productResponse) => {
+            productResponse.products.unshift(product);
+          });
+        })
+      );
+  }
+
+  // Esta es la propueta de la clase de Fernando Herrera.
+  /* createProduct(): Observable<Product> {
+    return this.http.post<Product>(`${baseUrl}/products`, productLike)
+      .pipe(tap((product) => this.updateProductCache(product)));
+  } */
 }
