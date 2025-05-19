@@ -1,9 +1,11 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ProductCarouselComponent } from '@products/components/product-carousel/product-carousel.component';
 import { Product } from '@products/interfaces/product.interface';
 import { ProductsService } from '@products/services/products.service';
 import { FormErrorLabelComponent } from '@shared/components/form-error-label/form-error-label.component';
+import { firstValueFrom } from 'rxjs';
 import { FormUtils } from 'src/app/Utils/form-utils';
 
 @Component({
@@ -14,7 +16,9 @@ import { FormUtils } from 'src/app/Utils/form-utils';
 export class ProductDetailsComponent implements OnInit {
 
   product = input.required<Product>();
+  wasSaved = signal(false);
   fb = inject(FormBuilder);
+  router = inject(Router);
   productsService = inject(ProductsService);
 
 
@@ -43,23 +47,40 @@ export class ProductDetailsComponent implements OnInit {
 
   sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
-  onSubmit() {
+  async onSubmit() {
     if (this.productForm.invalid) {
-      this.productForm.markAllAsTouched();
       return;
     } else {
       const formValue = this.productForm.value;
+      this.productForm.markAllAsTouched();
+
       const productLike: Partial<Product> = {
         ...(formValue as any),
-        tags: formValue.tags
-          ?.toLowerCase()
-          .split(',')
-          .map((tag) => tag.trim()) ?? []
+        tags:
+          typeof formValue.tags === 'string'
+            ? formValue.tags
+              ?.toLowerCase()
+              .split(',')
+              .map((tag) => tag.trim())
+            : [],
       };
 
-      console.log('Product-Details: ', productLike);
-      this.productsService.updateProduct(this.product().id, productLike)
-        .subscribe((product) => { console.log('Producto Actualizado!!!', product) })
+      // Logica para crear un nuevo producto.
+      if (this.product().id === 'new') {
+          const product = await firstValueFrom(
+            this.productsService.createProduct(productLike)
+          );
+          this.router.navigate(['/admin/products', product.id]);
+      } else {
+          await firstValueFrom(
+            this.productsService.updateProduct(this.product().id, productLike)
+          );
+      }
+      this.wasSaved.set(true);
+      setTimeout(() => {
+        this.wasSaved.set(false);
+      }, 2000);
+      this.productForm.reset(this.product() as any);
     }
   }
 
@@ -78,5 +99,4 @@ export class ProductDetailsComponent implements OnInit {
     this.productForm.reset(this.product() as any);
     this.productForm.patchValue({tags: formLike.tags?.join(', ') });
   }
-
 }
