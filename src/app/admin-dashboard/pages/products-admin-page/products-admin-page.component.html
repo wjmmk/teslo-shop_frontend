@@ -8,22 +8,21 @@
 
 <div class="divider"></div>
 
-<div class="flex items-center h-12 mb-6">
-  <shared-pagination
+<div class="flex items-center -mt-8">
+  <div class="-mt-4">
+    <shared-pagination
     [pages]="productsResource.value()?.pages ?? 0"
     [currentPage]="paginationService.currentPage()"
   />
+  </div>
 
-  <select
-    class="select select-bordered text-lg font-semibold w-32 h-16 ml-4"
-    (change)="productsPerPage.set(+selectPerPage.value)"
-    #selectPerPage
-  >
+  <select class="select select-bordered text-lg font-semibold w-32 h-16 ml-4 mt-6"
+    (change)="productsPerPage.set(+selectPerPage.value)" #selectPerPage>
     <option value="10" class="text-lg font-semibold">10</option>
     <option value="20" class="text-lg font-semibold">20</option>
     <option value="50" class="text-lg font-semibold">50</option>
     <option value="100" class="text-lg font-semibold">100</option>
-</select>
+  </select>
 </div>
 
 <!-- Listado en tabla -->
