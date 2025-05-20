@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductCarouselComponent } from '@products/components/product-carousel/product-carousel.component';
@@ -16,11 +16,18 @@ import { FormUtils } from 'src/app/Utils/form-utils';
 export class ProductDetailsComponent implements OnInit {
 
   product = input.required<Product>();
+  tempImages = signal<string[]>([]); // Obtengo las imagenes temporales sin procesar.
+  imageFileList: FileList | undefined = undefined; // Controlo la lista de imagenes procesadas.
+
+  imageToUpload = computed(() => {
+    const currentImages = [...this.product().images, ...this.tempImages()];
+    return currentImages;
+  })
+
   wasSaved = signal(false);
   fb = inject(FormBuilder);
   router = inject(Router);
   productsService = inject(ProductsService);
-
 
   ngOnInit(): void {
     this.setFormValue(this.product());
@@ -98,5 +105,21 @@ export class ProductDetailsComponent implements OnInit {
    // this.productForm.patchValue(formLike as any);
     this.productForm.reset(this.product() as any);
     this.productForm.patchValue({tags: formLike.tags?.join(', ') });
+  }
+
+  // Manejo de las imagenes.
+  onFilesSelected(event: Event) {
+    if (!event) return;
+
+    const fileList = (event.target as HTMLInputElement).files;
+    this.imageFileList = fileList ?? undefined;
+
+    if (fileList!.length < 5) {
+      /* alert('No se pueden seleccionar más de 5 imágenes'); */
+      const imageUrlss = Array.from(fileList ?? []).map((file) => URL.createObjectURL(file));
+      this.tempImages.set(imageUrlss);
+
+      return;
+    }
   }
 }
