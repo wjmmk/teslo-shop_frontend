@@ -21,4 +21,7 @@ export class ProductPageComponent {
       return this.productsService.getProductByIdOrSlug(request.idSlug);
     }
   });
+
+
+  addToCart() {}
 }
