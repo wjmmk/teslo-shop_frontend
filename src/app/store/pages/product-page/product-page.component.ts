@@ -24,4 +24,5 @@ export class ProductPageComponent {
 
 
   addToCart() {}
+  rating: number = 4.5;
 }
