@@ -29,7 +29,7 @@ export class GenderPageComponent {
   ))
 
   readonly productsResource = rxResource({
-      request: () => ({ page: this.paginationService.currentPage() - 1 }),
+      request: () => ({ gender:this.gender(), page: this.paginationService.currentPage() - 1 }),
       loader: ({ request }) => {
         this.isLoading.set(true);
         this.hasError.set(false);
@@ -37,7 +37,7 @@ export class GenderPageComponent {
         return timer(0) // ✅ delay ligero para UX
           .pipe(
             switchMap(() =>
-              this.productsService.getAllProducts({ offset: request.page * 9 }).pipe(
+              this.productsService.getAllProducts({ gender: request.gender, offset: request.page * 9 }).pipe(
                 timeout(10000), // ✅ tiempo razonable para producción
                 catchError((error) => {
                   this.hasError.set(true);

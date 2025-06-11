@@ -19,7 +19,7 @@ export class PaginationComponent {
   currentPage = input<number>(1);
   activePage = linkedSignal(this.currentPage); // Esta es una señal que depende de otra para ser manejada en la vista.
 
-  getPageList = computed( () => {
+  getPageList = computed(() => {
     return Array.from({ length: this.pages()}, (_, i) => i + 1);
   });
 }
