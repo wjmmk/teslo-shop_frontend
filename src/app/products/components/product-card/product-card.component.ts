@@ -4,11 +4,11 @@ import { RouterLink } from '@angular/router';
 import { environment } from '@environments/environment.development';
 import { Product } from '@products/interfaces/product.interface';
 import { ProductImagePipe } from '@products/pipes/product-image.pipe';
-import { TransforsPipe } from '@shared/pipes/transfors.pipe';
+import { TransLatePipe } from '@shared/pipes/translate.pipe';
 
 @Component({
     selector: 'product-card',
-    imports: [RouterLink, SlicePipe, ProductImagePipe, TransforsPipe],
+    imports: [RouterLink, SlicePipe, ProductImagePipe, TransLatePipe],
     templateUrl: './product-card.component.html'
 })
 export class ProductCardComponent {
