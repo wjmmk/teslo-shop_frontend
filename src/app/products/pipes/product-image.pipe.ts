@@ -2,12 +2,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { environment } from '@environments/environment';
 
-
 const baseUrl = environment.baseUrl;
-
-@Pipe({
-  name: 'productImage'
-})
+@Pipe({ name: 'productImage' })
 
 export class ProductImagePipe implements PipeTransform {
   transform(value: null | string | string[]): string {
