@@ -5,18 +5,22 @@ import { ProductCardComponent } from '@products/components/product-card/product-
 import { ProductsService } from '@products/services/products.service';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { PaginationService } from '@shared/components/pagination/pagination.service';
+import { SearchBarComponent } from '@shared/components/search-bar/search-bar.component';
 import { timer, throwError } from 'rxjs';
 import { catchError, finalize, switchMap, timeout } from 'rxjs/operators';
 
 
 @Component({
   selector: 'app-product-list',
-  imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent],
+  imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent, SearchBarComponent],
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent  {
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
+
+  productosOriginal: any[] = [];
+  productosFiltrados: any[] = [];
 
   productsService = inject(ProductsService);
   paginationService = inject(PaginationService);
@@ -44,4 +48,10 @@ export class HomePageComponent  {
         );
     }
   });
+
+  filtrarProductos(termino: string) {
+  this.productosFiltrados = this.productosOriginal.filter(p =>
+    p.title.toLowerCase().includes(termino.toLowerCase())
+  );
+}
 }
