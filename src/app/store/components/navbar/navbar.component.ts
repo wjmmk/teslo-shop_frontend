@@ -4,9 +4,9 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@auth/services/auth.service';
 
 @Component({
-    selector: 'front-navbar',
-    imports: [RouterLink, RouterLinkActive, CommonModule],
-    templateUrl: './navbar.component.html'
+  selector: 'front-navbar',
+  imports: [RouterLink, RouterLinkActive, CommonModule],
+  templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
   authServices = inject(AuthService);
@@ -14,29 +14,35 @@ export class NavbarComponent {
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
-    // Como ocultar los botones del navbar.
+
+    // Solo aplicar en pantallas menores a 1024px (lg)
+    const isMobile = window.innerWidth < 1024;
     const loginButton = document.getElementById('login');
     const registerButton = document.getElementById('register');
-    const userButton = document.getElementById('user');
-    const salirButton = document.getElementById('salir');
-    const adminButton = document.getElementById('admin');
 
-    if (this.isMenuOpen) {
-      loginButton?.classList.add('hidden');
-      registerButton?.classList.add('hidden');
-      userButton?.classList.add('hidden');
-      salirButton?.classList.add('hidden');
-      adminButton?.classList.add('hidden');
+    if (isMobile) {
+      if (this.isMenuOpen) {
+        loginButton?.classList.add('hidden');
+        registerButton?.classList.add('hidden');
+      } else {
+        //Aqui necesito que vuelva a mostrar los botones de login y register
+        loginButton?.classList.remove('hidden');
+        registerButton?.classList.remove('hidden');
+      }
     } else {
+      // En escritorio, asegurarse que siempre estén visibles
       loginButton?.classList.remove('hidden');
       registerButton?.classList.remove('hidden');
-      userButton?.classList.remove('hidden');
-      salirButton?.classList.remove('hidden');
-      adminButton?.classList.remove('hidden');
     }
   }
 
   closeMenu() {
     this.isMenuOpen = false;
+    setTimeout(() => {
+      const loginButton = document.getElementById('login');
+      const registerButton = document.getElementById('register');
+      loginButton?.classList.remove('hidden');
+      registerButton?.classList.remove('hidden');
+    }, 400); // Espera a que el menú se cierre antes de mostrar los botones
   }
 }
