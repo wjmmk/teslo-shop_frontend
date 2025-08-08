@@ -75,36 +75,32 @@
       </li>
     </ul>
   </div>
-  <div class="navbar-end flex-1 lg:flex space-x-2 justify-end">
+  <div class="navbar-end flex-1 lg:flex space-x-1 justify-end">
 
     @if (authServices.isAdmin()) {
-    <a id="admin" routerLink="/admin" class="btn text-accent">Admin Panel</a>
+      <a id="admin" routerLink="/admin" class="btn btn-ghost border-4 mr-2 border-sky-800 shadow-2xl bg-blue-950 group
+                transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100">
+        <span class="badge badge-secondary font-montserrat text-xs text-red-800 bg-gradient-to-r">Admin Panel</span>
+      </a>
     }
 
     @if (authServices.authStatus() === 'authenticated') {
-    <button id="user" type="button" class="btn btn-ghost border-4 border-indigo-500/75 mr-2 shadow-2xl shadow-cyan-500/50 group
-                transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100"
-      (click)="''">
-      <span class="badge badge-secondary font-bold text-green-950 bg-gradient-to-r group-hover:text-white">{{
-        authServices.user()?.fullName }}</span>
-    </button>
-
-    <button id="salir" type="button" class="btn btn-ghost border-4 border-x-indigo-500 shadow-2xl shadow-cyan-500/50 group
-                transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100"
+    <button id="salir" type="button" class="btn btn-ghost border-4 border-x-indigo-500 shadow-2xl text-zinc-50 group
+                transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:text-white duration-100"
       (click)="authServices.logout()">
-      <span class="badge badge-secondary font-bold text-green-950 bg-gradient-to-r group-hover:text-white">Salir</span>
+      <span class="badge badge-secondary font-montserrat text-xs text-red-800 bg-gradient-to-r group-hover:text-white">Salir</span>
     </button>
     } <!-- @else (authServices.authStatus() === 'not-authenticated') { -->
     @else {
-    <a id="login" routerLink="/auth/register" class="btn btn-ghost border-4 mr-2 border-indigo-500/75 shadow-2xl bg-blue-950 group
+    <a id="login" routerLink="/auth/register" class="btn btn-ghost border-4 mr-2 border-sky-800 shadow-2xl bg-blue-950 group
                 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100">
       <span
-        class="badge badge-secondary font-bold text-white bg-gradient-to-r">Regístrese</span>
+        class="badge badge-secondary font-montserrat text-xs text-white bg-gradient-to-r">Regístrese</span>
     </a>
     <!-- Separacion de Botones para Usuarios No-Autenticados-->
-    <a id="register" routerLink="/auth/login" class="shadow-2xl" class="btn btn-ghost border-4 border-x-indigo-500 shadow-2xl shadow-indigo-500/50 group
+    <a id="register" routerLink="/auth/login" class="shadow-2xl" class="btn btn-ghost border-4 border-x-orange-300 shadow-2xl shadow-indigo-500/50 group
                 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100">
-      <span class="badge badge-secondary font-bold text-zinc-50 bg-gradient-to-r group-hover:text-white">Login</span>
+      <span class="badge badge-secondary font-montserrat text-xs text-zinc-50 bg-gradient-to-r group-hover:text-white">Login</span>
     </a>
     }
 

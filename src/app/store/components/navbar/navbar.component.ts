@@ -19,20 +19,28 @@ export class NavbarComponent {
     const isMobile = window.innerWidth < 1024;
     const loginButton = document.getElementById('login');
     const registerButton = document.getElementById('register');
+    const adminButton = document.getElementById('admin');
+    const salirButton = document.getElementById('salir');
 
     if (isMobile) {
       if (this.isMenuOpen) {
         loginButton?.classList.add('hidden');
         registerButton?.classList.add('hidden');
+        adminButton?.classList.add('hidden');
+        salirButton?.classList.add('hidden');
       } else {
         //Aqui necesito que vuelva a mostrar los botones de login y register
         loginButton?.classList.remove('hidden');
         registerButton?.classList.remove('hidden');
+        adminButton?.classList.remove('hidden');
+        salirButton?.classList.remove('hidden');
       }
     } else {
       // En escritorio, asegurarse que siempre estén visibles
       loginButton?.classList.remove('hidden');
       registerButton?.classList.remove('hidden');
+      adminButton?.classList.remove('hidden');
+      salirButton?.classList.remove('hidden');
     }
   }
 
@@ -41,8 +49,15 @@ export class NavbarComponent {
     setTimeout(() => {
       const loginButton = document.getElementById('login');
       const registerButton = document.getElementById('register');
+
+      const adminButton = document.getElementById('admin');
+      const salirButton = document.getElementById('salir');
+
       loginButton?.classList.remove('hidden');
       registerButton?.classList.remove('hidden');
+
+      adminButton?.classList.remove('hidden');
+      salirButton?.classList.remove('hidden');
     }, 400); // Espera a que el menú se cierre antes de mostrar los botones
   }
 }
