@@ -1,17 +1,26 @@
 
 <h1 class="text-3xl font-bold font-montserrat py-2">Todos los Productos</h1>
 @if (gender() === 'kid') {
-  <h5 class="text-xl">Para todos los gustos
-    <span class="text-amber-200">{{gender()}}.</span>
-  </h5>
+  <div class="flex justify-between">
+    <h5 class="text-sm md:text-xl mt-1">Para todos los gustos
+      <span class="text-amber-200">{{gender()}}.</span>
+    </h5>
+    <search-bar (search)="filtrarProductos($event)"></search-bar>
+  </div>
 } @else if (gender() === 'women'){
-  <h5 class="text-xl">Para todos los gustos
-    <span class="text-fuchsia-400">{{gender()}}.</span>
-  </h5>
+  <div class="flex justify-between">
+    <h5 class="text-sm md:text-xl mt-1">Para todos los gustos
+      <span class="text-amber-200">{{gender()}}.</span>
+    </h5>
+    <search-bar (search)="filtrarProductos($event)"></search-bar>
+  </div>
 } @else {
-  <h5 class="text-xl">Para todos los gustos
-    <span class="text-sky-500">{{gender()}}.</span>
-  </h5>
+  <div class="flex justify-between">
+    <h5 class="text-sm md:text-xl mt-1">Para todos los gustos
+      <span class="text-amber-200">{{gender()}}.</span>
+    </h5>
+    <search-bar (search)="filtrarProductos($event)"></search-bar>
+  </div>
 }
 
 @defer (when isLoading()) {

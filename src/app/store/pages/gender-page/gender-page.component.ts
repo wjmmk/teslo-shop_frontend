@@ -6,12 +6,13 @@ import { ProductCardComponent } from '@products/components/product-card/product-
 import { ProductsService } from '@products/services/products.service';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { PaginationService } from '@shared/components/pagination/pagination.service';
+import { SearchBarComponent } from '@shared/components/search-bar/search-bar.component';
 import { timer, throwError, map } from 'rxjs';
 import { catchError, finalize, switchMap, timeout } from 'rxjs/operators';
 
 @Component({
     selector: 'app-gender-page',
-    imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent],
+    imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent, SearchBarComponent],
     templateUrl: './gender-page.component.html'
 })
 export class GenderPageComponent {
@@ -22,6 +23,9 @@ export class GenderPageComponent {
   productsService = inject(ProductsService);
   paginationService = inject(PaginationService);
 
+  productosOriginal: any[] = [];
+  productosFiltrados: any[] = [];
+
   gender = toSignal(this.route.params.pipe(
     map( ({ gender }) => {
       return gender;
@@ -29,26 +33,33 @@ export class GenderPageComponent {
   ))
 
   readonly productsResource = rxResource({
-      request: () => ({ gender:this.gender(), page: this.paginationService.currentPage() - 1 }),
-      loader: ({ request }) => {
-        this.isLoading.set(true);
-        this.hasError.set(false);
+    request: () => ({ gender: this.gender(), page: this.paginationService.currentPage() - 1 }),
+    loader: ({ request }) => {
+      this.isLoading.set(true);
+      this.hasError.set(false);
 
-        return timer(0) // ✅ delay ligero para UX
-          .pipe(
-            switchMap(() =>
-              this.productsService.getAllProducts({ gender: request.gender, offset: request.page * 9 }).pipe(
-                timeout(10000), // ✅ tiempo razonable para producción
-                catchError((error) => {
-                  this.hasError.set(true);
-                  return throwError(() => error);
-                }),
-                finalize(() => {
-                  this.isLoading.set(false);
-                })
-              )
+      return timer(0) // ✅ delay ligero para UX
+        .pipe(
+          switchMap(() =>
+            this.productsService.getAllProducts({ gender: request.gender, offset: request.page * 9 }).pipe(
+              timeout(10000), // ✅ tiempo razonable para producción
+              catchError((error) => {
+                this.hasError.set(true);
+                return throwError(() => error);
+              }),
+              finalize(() => {
+                this.isLoading.set(false);
+              })
             )
-          );
-      }
-    });
+          )
+        );
+    }
+  });
+
+  filtrarProductos(termino: string) {
+    this.productosFiltrados = this.productosOriginal.filter(p =>
+      p.title.toLowerCase().includes(termino.toLowerCase())
+    );
+  }
+
  }

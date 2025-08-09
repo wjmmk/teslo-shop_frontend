@@ -50,8 +50,8 @@ export class HomePageComponent  {
   });
 
   filtrarProductos(termino: string) {
-  this.productosFiltrados = this.productosOriginal.filter(p =>
-    p.title.toLowerCase().includes(termino.toLowerCase())
-  );
-}
+    this.productosFiltrados = this.productosOriginal.filter(p =>
+      p.title.toLowerCase().includes(termino.toLowerCase())
+    );
+  }
 }
