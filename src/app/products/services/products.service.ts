@@ -9,6 +9,12 @@ import { delay, forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
 
 const baseUrl = environment.baseUrl;
 
+const option2 = {
+  limit: 16,
+  offset: 0,
+  gender: ''
+};
+
 const emtyProduct: Product = {
   id: 'new',
   title: '',
@@ -47,6 +53,26 @@ export class ProductsService {
       //tap((products) => console.log('Productos de la Tienda: ', products)),
       tap((resp) => this.productsCache.set(key, resp))
     )
+  }
+
+  //Estamos manejando la busqueda de productos
+  getAllProductsToFilter(term: string): Observable<ProductsResponse> {
+    const { limit, offset, gender } = option2;
+
+    const request = this.http.get<ProductsResponse>(`${baseUrl}/products`, {
+      params: { limit, offset, gender }
+    }).pipe(
+      //tap((resp) => console.log('Search term: ', resp)),
+      map((resp) => ({
+        ...resp,
+        products: resp.products.filter(product => {
+          const resp = product.title.toLowerCase().includes(term.toLowerCase());
+          //console.log('Filtered Product: ', product);
+          return resp;
+        })
+      }))
+    );
+    return request;
   }
 
   getProductByIdOrSlug(idSlug: string):Observable<Product> {
