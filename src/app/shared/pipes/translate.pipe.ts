@@ -6,7 +6,7 @@ export class TransLatePipe implements PipeTransform {
   private dictionary: { [key: string]: string } = {
     "Chill Pullover Hoodie": "Sudadera Chill con Capucha",
     "Men's Quilted Shirt Jacket": "Chaqueta Acolchada para Hombre",
-    "Women's Powerwall Tee": "Camiseta Powerwall para Mujer",
+    "Women’s Powerwall Tee": "Camiseta Powerwall para Mujer",
     "Men's Solar Roof Tee": "Camiseta solar (Tesla Solar Roof) para Hombre",
     "Scribble T Logo Onesie": "Body con Logo T de Garabato",
     "Men's Turbine Short Sleeve Tee": "Camiseta de Manga Corta Turbine para Hombre",
@@ -50,7 +50,11 @@ export class TransLatePipe implements PipeTransform {
     "Women's Raven Joggers": "Pantalones Raven para Mujer",
     "Men's Cybertruck Bulletproof Tee": "Camiseta a Prueba de Balas Cybertruck para Hombre",
     "Made on Earth by Humans Onesie": "Body Hecho en la Tierra por Humanos",
-    "Men's Let the Sun Shine Tee": "Camiseta Let the Sun Shine para Hombre"
+    "Men's Let the Sun Shine Tee": "Camiseta Let the Sun Shine para Hombre",
+    "Men’s Chill Crew Neck Sweatshirt": "Sudadera con Cuello Redondo Chill para Hombre",
+    "Women's Turbine Cropped Short Sleeve Tee": "Camiseta de Manga Corta Cropped Turbine para Mujer",
+    "Men's Powerwall Tee": "Camiseta Powerwall para Hombre",
+    "Men’s Cybertruck Bulletproof Tee": "Camiseta a Prueba de Balas Cybertruck para Hombre"
   };
 
   transform(value: string): string {
