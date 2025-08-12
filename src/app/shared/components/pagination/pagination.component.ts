@@ -20,6 +20,7 @@ export class PaginationComponent {
   activePage = linkedSignal(this.currentPage); // Esta es una señal que depende de otra para ser manejada en la vista.
 
   getPageList = computed(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     return Array.from({ length: this.pages()}, (_, i) => i + 1);
   });
 }
