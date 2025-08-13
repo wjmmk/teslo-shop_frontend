@@ -2,12 +2,13 @@ import { Component, inject, linkedSignal, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { Product } from '@products/interfaces/product.interface';
+import { ProductImagePipe } from '@products/pipes/product-image.pipe';
 import { ProductsService } from '@products/services/products.service';
 import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 
 @Component({
   selector: 'search-bar',
-  imports: [],
+  imports: [ProductImagePipe],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
 })
