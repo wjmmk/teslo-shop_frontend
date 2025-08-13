@@ -17,7 +17,7 @@ export class ProductImagePipe implements PipeTransform {
     }
 
     if (typeof value === 'string') {
-      return `${baseUrl}/files/product/${value}`;
+      return `${baseUrl}/public/images/${value}`;
     }
 
     const image = value?.at(0);
@@ -25,6 +25,6 @@ export class ProductImagePipe implements PipeTransform {
     if (!image) {
       return './assets/images/no-image.jpg';
     }
-    return `${baseUrl}/files/product/${image}`;
+    return `${baseUrl}/public/images/${image}`;
   }
 }
