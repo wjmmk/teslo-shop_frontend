@@ -47,7 +47,7 @@ export class ProductCardComponent {
   }
 
   imageUrl = computed( () => {
-    return `${this.baseUrl}/files/product/${this.product().images[0]}`;
+    return `${this.baseUrl}/public/images/${this.product().images[0]}`;
   })
 
 
