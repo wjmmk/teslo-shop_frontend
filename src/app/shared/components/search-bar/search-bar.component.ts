@@ -3,15 +3,13 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { Product } from '@products/interfaces/product.interface';
 import { ProductsService } from '@products/services/products.service';
-import { TransLatePipe } from '@shared/pipes/translate.pipe';
 import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 
 @Component({
   selector: 'search-bar',
-  imports: [TransLatePipe],
+  imports: [],
   templateUrl: './search-bar.component.html',
-  styleUrl: './search-bar.component.css',
-  providers: [TransLatePipe]
+  styleUrl: './search-bar.component.css'
 })
 export class SearchBarComponent {
   searchTerm = signal<string>('');
