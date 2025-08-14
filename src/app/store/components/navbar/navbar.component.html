@@ -1,5 +1,5 @@
 <div class="navbar bg-white rounded-lg shadow-md justify-between">
-  <div class="navbar-start flex-1">
+  <div class="navbar-start flex-1 space-x-2">
     <div class="dropdown">
       <div tabindex="0" role="button"
         class="btn btn-ghost bg-violet-950 rounded-lg lg:hidden md:hidden xl:hidden border-4 border-indigo-500/75"
@@ -19,8 +19,9 @@
       </a>
     </div>
   </div>
-  <div class="navbar-center hidden lg:flex" [ngClass]="{ 'block': isMenuOpen, 'hidden': !isMenuOpen }">
-    <ul class="flex font-medium flex-col border border-gray-100 bg-white md:flex-row md:space-x-2 gap-2
+
+  <div class="navbar-center lg:flex" [ngClass]="{ 'block': isMenuOpen, 'hidden': !isMenuOpen }">
+    <ul class="flex font-medium flex-col border border-gray-100 bg-white md:flex-row md:space-x-2 gap-2 lg:gap-3
                  rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
       <li class="flex items-center transition ease-in-out hover:-translate-y-1 hover:scale-110 ">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 mr-2">
@@ -76,11 +77,22 @@
     </ul>
   </div>
 
-  <div class="navbar-end flex-1 lg:flex space-x-1 justify-end">
+  <div class="navbar-end flex-1 lg:flex space-x-0">
     @if (authServices.isAdmin()) {
       <a id="admin" routerLink="/admin" class="btn btn-ghost border-4 mr-2 border-sky-800 shadow-2xl bg-blue-950 group
-                    transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100">
-        <span class="badge badge-secondary font-montserrat text-xs text-red-800 bg-gradient-to-r ">Admin Panel</span>
+                                transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100">
+        <span class="relative badge badge-secondary font-montserrat text-xs text-red-800 bg-gradient-to-r ">
+
+          <!-- Halo circular detrás del botón -->
+          <span class="absolute inset-0 rounded-md
+                       before:content-[''] before:absolute before:inset-0
+                       before:rounded-md before:bg-[conic-gradient(from_0deg,cyan,blue,indigo,cyan)]
+                       before:animate-rotateRing before:blur-md before:opacity-80
+                       before:transition-all before:duration-500
+                       group-hover:before:scale-150 group-hover:before:opacity-60 -z-10">
+          </span>
+          Admin Panel
+        </span>
       </a>
     }
 
@@ -89,19 +101,22 @@
                     transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:text-white duration-100"
         (click)="authServices.logout()">
         <span
-          class="badge badge-secondary font-montserrat text-xs text-red-800 bg-gradient-to-r group-hover:text-white">Salir</span>
+          class="badge badge-secondary font-montserrat text-xs text-yellow-200 bg-gradient-to-r group-hover:text-white">Salir</span>
       </button>
     } <!-- @else (authServices.authStatus() === 'not-authenticated') { -->
     @else {
       <a id="register" routerLink="/auth/register" class="btn btn-ghost border-4 mr-2 shadow-2xl bg-blue-950 group
-                        transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100">
+                              transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-blue-950 duration-100">
         <span class="relative badge badge-secondary font-montserrat text-sm font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r
-                        from-cyan-300 via-blue-400 to-indigo-500 bg-[length:200%_200%] bg-no-repeat animate-lightRing">
-              <!-- Halo circular -->
-              <span class="absolute -inset-1 rounded-full before:content-[''] before:absolute before:inset-0
-                      before:rounded-full before:bg-[conic-gradient(from_0deg,cyan,blue,indigo,cyan)]
-                      before:animate-rotateRing before:blur-sm before:opacity-80 -z-10">
-              </span>
+                              from-cyan-300 via-blue-400 to-indigo-500 bg-[length:200%_200%] bg-no-repeat animate-lightRing">
+          <!-- Halo circular detrás del botón -->
+          <span class="absolute inset-0 rounded-md
+                 before:content-[''] before:absolute before:inset-0
+                 before:rounded-md before:bg-[conic-gradient(from_0deg,cyan,blue,indigo,cyan)]
+                 before:animate-rotateRing before:blur-md before:opacity-80
+                 before:transition-all before:duration-500
+                 group-hover:before:scale-150 group-hover:before:opacity-60 -z-10">
+          </span>
           Regístrese
         </span>
       </a>
