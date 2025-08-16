@@ -10,5 +10,6 @@
         "angular-page": {
             "skipChangeDetectionOnPush": true
         }
-    }
+    },
+    "angular.enable-strict-mode-prompt": false
 }
