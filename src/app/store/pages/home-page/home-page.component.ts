@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductCardSkeletonComponent } from '@products/components/product-card-skeleton/product-card-skeleton.component';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
+import { ShoppingCartComponent } from '@products/components/shopping-cart/shopping-cart.component';
 import { ProductsService } from '@products/services/products.service';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { PaginationService } from '@shared/components/pagination/pagination.service';
@@ -12,12 +13,13 @@ import { catchError, finalize, switchMap, timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'home-list',
-  imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent, SearchBarComponent],
+  imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent, SearchBarComponent, ShoppingCartComponent],
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent  {
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
+  isCartOpen = signal(false);
 
   productosOriginal: any[] = [];
   productosFiltrados: any[] = [];
@@ -53,5 +55,9 @@ export class HomePageComponent  {
     this.productosFiltrados = this.productosOriginal.filter(p =>
       p.title.toLowerCase().includes(termino.toLowerCase())
     );
+  }
+
+  toggleCart() {
+    this.isCartOpen.update(value => !value);
   }
 }
