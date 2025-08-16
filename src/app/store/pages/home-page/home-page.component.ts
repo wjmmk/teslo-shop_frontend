@@ -11,7 +11,7 @@ import { catchError, finalize, switchMap, timeout } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-product-list',
+  selector: 'home-list',
   imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent, SearchBarComponent],
   templateUrl: './home-page.component.html',
 })
