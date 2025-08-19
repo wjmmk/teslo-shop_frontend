@@ -1,44 +1,29 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, Input, signal } from '@angular/core';
+import { Component, inject, Input, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { Product } from '@products/interfaces/product.interface';
+import { ProductImagePipe } from '@products/pipes/product-image.pipe';
+import { ProductsCartService } from '@products/services/products-cart.service';
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  quantity: number;
-}
 
 @Component({
-  selector: 'app-shopping-cart',
-  imports: [DecimalPipe],
+  selector: 'shopping-cart',
+  imports: [DecimalPipe, ProductImagePipe],
   templateUrl: './shopping-cart.component.html',
   styleUrl: './shopping-cart.component.css'
 })
 export class ShoppingCartComponent {
   @Input() isOpen = false; // Para controlar la visibilidad del carrito
   products = signal<Product[]>([]);
+  productsCartService = inject(ProductsCartService);
 
-  constructor(private router: Router) {}
-
-
-  addProduct(product: Product) {
-    const existing = this.products().find(p => p.id === product.id);
-    if (existing) {
-      existing.quantity += 1;
-      this.products.update(list => [...list]);
-    } else {
-      this.products.update(list => [...list, { ...product, quantity: 1 }]);
-    }
+  constructor(private router: Router) {
+    this.products = this.productsCartService.products;
   }
 
-  removeProduct(id: number) {
-    this.products.update(list => list.filter(p => p.id !== id));
-  }
-
-  get total() {
-    return this.products().reduce((acc, p) => acc + p.price * p.quantity, 0);
+  removeProduct(product: Product) {
+    console.log('Producto eliminado del carrito: ', product);
+    this.productsCartService.removeProduct(product.id);
   }
 
   closeCart() {
