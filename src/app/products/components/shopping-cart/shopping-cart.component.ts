@@ -1,5 +1,6 @@
 import { DecimalPipe } from '@angular/common';
 import { Component, Input, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface Product {
   id: number;
@@ -19,6 +20,9 @@ export class ShoppingCartComponent {
   @Input() isOpen = false; // Para controlar la visibilidad del carrito
   products = signal<Product[]>([]);
 
+  constructor(private router: Router) {}
+
+
   addProduct(product: Product) {
     const existing = this.products().find(p => p.id === product.id);
     if (existing) {
@@ -35,5 +39,10 @@ export class ShoppingCartComponent {
 
   get total() {
     return this.products().reduce((acc, p) => acc + p.price * p.quantity, 0);
+  }
+
+  closeCart() {
+    this.isOpen = false;
+    this.router.navigate(['/']);
   }
 }
