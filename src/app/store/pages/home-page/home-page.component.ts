@@ -3,6 +3,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductCardSkeletonComponent } from '@products/components/product-card-skeleton/product-card-skeleton.component';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
 import { ShoppingCartComponent } from '@products/components/shopping-cart/shopping-cart.component';
+import { ProductsCartService } from '@products/services/products-cart.service';
 import { ProductsService } from '@products/services/products.service';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { PaginationService } from '@shared/components/pagination/pagination.service';
@@ -14,7 +15,7 @@ import { catchError, finalize, switchMap, timeout } from 'rxjs/operators';
 @Component({
   selector: 'home-list',
   imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent, SearchBarComponent, ShoppingCartComponent],
-  templateUrl: './home-page.component.html',
+  templateUrl: './home-page.component.html'
 })
 export class HomePageComponent  {
   readonly isLoading = signal(true);
@@ -25,6 +26,7 @@ export class HomePageComponent  {
   productosFiltrados: any[] = [];
 
   productsService = inject(ProductsService);
+  productsCartService = inject(ProductsCartService);
   paginationService = inject(PaginationService);
 
   readonly productsResource = rxResource({
