@@ -82,7 +82,7 @@ export class ProductsService {
     return this.http.get<Product>(`${baseUrl}/products/${idSlug}`)
     .pipe(
      // delay(2000),
-      tap((product) => console.log('Producto de la Tienda: ', product)),
+     // tap((product) => console.log('Producto de la Tienda: ', product)),
       tap((product) => this.productCache.set(idSlug, product))
     )
   }
