@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { Product } from '@products/interfaces/product.interface';
 
 @Injectable({
@@ -7,10 +7,14 @@ import { Product } from '@products/interfaces/product.interface';
 export class ProductsCartService {
   products = signal<Product[]>([]);
 
+  cartItemCount = computed(() => {
+    return this.products().reduce((acc, p) => acc + p.stock, 0);
+  });
+
   constructor() { }
 
 
-  addProduct(product: Product) {
+  addProduct(product: Product): void {
     const existing = this.products().find(p => p.id === product.id);
     if (existing) {
       existing.stock += 1;// Pending
@@ -20,7 +24,7 @@ export class ProductsCartService {
     }
   }
 
-  removeProduct(id: string) {
+  removeProduct(id: string): void {
     const currentProducts = this.products();
     const productToRemove = currentProducts.find(p => p.id === id);
 
@@ -42,7 +46,7 @@ export class ProductsCartService {
     }
   }
 
-  get total() {
+  get total(): number {
     return this.products().reduce((acc, p) => acc + p.price * p.stock, 0);
   }
 }
