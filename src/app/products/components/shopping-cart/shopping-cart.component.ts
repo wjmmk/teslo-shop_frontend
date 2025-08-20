@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '@products/interfaces/product.interface';
 import { ProductImagePipe } from '@products/pipes/product-image.pipe';
@@ -14,12 +14,10 @@ import { ProductsCartService } from '@products/services/products-cart.service';
 })
 export class ShoppingCartComponent {
   @Input() isOpen = false; // Para controlar la visibilidad del carrito
-  products = signal<Product[]>([]);
   productsCartService = inject(ProductsCartService);
+  products = this.productsCartService.products;
 
-  constructor(private router: Router) {
-    this.products = this.productsCartService.products;
-  }
+  constructor(private router: Router) { }
 
   removeProduct(product: Product) {
     console.log('Producto eliminado del carrito: ', product);
