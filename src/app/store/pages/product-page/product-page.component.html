@@ -11,12 +11,25 @@
     <product-carousel [images]="productResource.value()!.images" />
 
     <div class="flex flex-col">
-      <h2 class="test-2xl font-bold text-center pt-1 font-montserrat card-title hover:underline">
-        {{ productResource.value()!.title | customTranslate }}
-      </h2>
+      <div class="flex justify-evenly items-center mb-2">
+        <h2 class="test-2xl font-bold text-center pt-1 font-montserrat card-title hover:underline">
+          {{ productResource.value()!.title | customTranslate }}
+        </h2>
+        <button (click)="toggleCart()" class="relative p-1 rounded-full bg-gray-100 hover:bg-indigo-100 transition">🛒
+          <span
+            class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full shadow">
+            {{ productsCartService.cartItemCount() }}
+          </span>
+        </button>
+      </div>
+
       <div class="divider"></div>
 
       <p class="my-4">{{ productResource.value()!.description }}</p>
+
+
+        <!-- Aquí montamos el carrito -->
+        <shopping-cart [isOpen]="isCartOpen()"></shopping-cart>
 
 
       <!-- La parte textual de la vista. -->
