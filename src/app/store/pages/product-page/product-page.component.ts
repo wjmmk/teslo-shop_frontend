@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductCarouselComponent } from '@products/components/product-carousel/product-carousel.component';
 import { ProductsService } from '@products/services/products.service';
 import { TransLatePipe } from "../../../shared/pipes/translate.pipe";
 import { ProductsCartService } from '@products/services/products-cart.service';
 import { CurrencyPipe } from '@angular/common';
+import { ProductCarouselComponent } from '@products/components/product-carousel/product-carousel.component';
 
 @Component({
     selector: 'app-product-page',
@@ -31,6 +31,6 @@ export class ProductPageComponent {
 
   addToCart() {
     this.productsCartService.addProduct(this.productResource.value()!);
-    this.router.navigate(['/']);
+    //this.router.navigate(['/']);
   }
 }

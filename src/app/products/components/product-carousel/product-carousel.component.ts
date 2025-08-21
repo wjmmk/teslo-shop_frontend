@@ -11,13 +11,7 @@ import 'swiper/css/pagination';
 @Component({
   selector: 'product-carousel',
   imports: [ProductImagePipe],
-  templateUrl: './product-carousel.component.html',
-  /* styles: `
-    .swiper {
-      width: 100%;
-      height:500px;
-    }
-  ` */
+  templateUrl: './product-carousel.component.html'
 })
 export class ProductCarouselComponent implements AfterViewInit, OnChanges {
   images = input.required<string[]>();
