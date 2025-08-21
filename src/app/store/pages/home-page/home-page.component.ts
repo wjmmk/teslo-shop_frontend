@@ -1,9 +1,8 @@
-import { Component, inject, Signal, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductCardSkeletonComponent } from '@products/components/product-card-skeleton/product-card-skeleton.component';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
 import { ShoppingCartComponent } from '@products/components/shopping-cart/shopping-cart.component';
-import { Product } from '@products/interfaces/product.interface';
 import { ProductsCartService } from '@products/services/products-cart.service';
 import { ProductsService } from '@products/services/products.service';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
