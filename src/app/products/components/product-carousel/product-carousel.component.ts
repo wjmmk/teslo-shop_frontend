@@ -12,12 +12,12 @@ import 'swiper/css/pagination';
   selector: 'product-carousel',
   imports: [ProductImagePipe],
   templateUrl: './product-carousel.component.html',
-  styles: `
+  /* styles: `
     .swiper {
       width: 100%;
       height:500px;
     }
-  `
+  ` */
 })
 export class ProductCarouselComponent implements AfterViewInit, OnChanges {
   images = input.required<string[]>();
