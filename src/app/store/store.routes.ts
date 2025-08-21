@@ -5,6 +5,7 @@ import { GenderPageComponent } from "./pages/gender-page/gender-page.component";
 import { ProductPageComponent } from "./pages/product-page/product-page.component";
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
 import { AboutComponent } from "./pages/about/about.component";
+import { PaymentComponent } from "./pages/payment/payment.component";
 
 
 export const stroreRoutes: Routes = [
@@ -31,6 +32,11 @@ export const stroreRoutes: Routes = [
         path: "product/:idSlug",
         title: 'Producto',
         component: ProductPageComponent
+      },
+      {
+        path: "payment",
+        title: 'Pago',
+        component: PaymentComponent
       },
       {
         path: "**",
