@@ -20,12 +20,12 @@ export class ShoppingCartComponent {
   constructor(private router: Router) { }
 
   removeProduct(product: Product) {
-    console.log('Producto eliminado del carrito: ', product);
+    //console.log('Producto eliminado del carrito: ', product);
     this.productsCartService.removeProduct(product.id);
   }
 
   closeCart() {
     this.isOpen = false;
-    this.router.navigate(['/']);
+    /* this.router.navigate(['/']); */
   }
 }

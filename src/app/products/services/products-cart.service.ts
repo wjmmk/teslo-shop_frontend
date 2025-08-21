@@ -42,7 +42,7 @@ export class ProductsCartService {
         // Si solo hay una unidad, eliminamos el producto completamente
         this.products.update(list => list.filter(p => p.id !== id));
       }
-      console.log('Producto actualizado/eliminado del carrito:', productToRemove);
+      //console.log('Producto actualizado/eliminado del carrito:', productToRemove);
     }
   }
 
