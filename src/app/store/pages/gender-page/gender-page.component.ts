@@ -3,6 +3,8 @@ import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { ProductCardSkeletonComponent } from '@products/components/product-card-skeleton/product-card-skeleton.component';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
+import { ShoppingCartComponent } from '@products/components/shopping-cart/shopping-cart.component';
+import { ProductsCartService } from '@products/services/products-cart.service';
 import { ProductsService } from '@products/services/products.service';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { PaginationService } from '@shared/components/pagination/pagination.service';
@@ -12,15 +14,17 @@ import { catchError, finalize, switchMap, timeout } from 'rxjs/operators';
 
 @Component({
     selector: 'app-gender-page',
-    imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent, SearchBarComponent],
+    imports: [ProductCardComponent, PaginationComponent, ShoppingCartComponent, ProductCardSkeletonComponent, SearchBarComponent],
     templateUrl: './gender-page.component.html'
 })
 export class GenderPageComponent {
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
+  isCartOpen = signal(false);
 
   route = inject(ActivatedRoute);
   productsService = inject(ProductsService);
+  productsCartService = inject(ProductsCartService);
   paginationService = inject(PaginationService);
 
   productosOriginal: any[] = [];
@@ -62,4 +66,7 @@ export class GenderPageComponent {
     );
   }
 
- }
+  toggleCart() {
+    this.isCartOpen.update(value => !value);
+  }
+}

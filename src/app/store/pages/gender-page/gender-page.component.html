@@ -1,10 +1,20 @@
 
-<h1 class="text-3xl font-bold font-montserrat py-2">Todos los Productos</h1>
+<div class="flex justify-between items-center my-1">
+  <h1 class="text-sm md:text-3xl font-bold font-montserrat mt-1">Todos los Productos</h1>
+  <button (click)="toggleCart()" class="relative p-1 rounded-full bg-gray-100 hover:bg-indigo-100 transition">🛒
+    <span
+      class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full shadow">
+      {{ productsCartService.cartItemCount() }}
+    </span>
+  </button>
+</div>
 @if (gender() === 'kid') {
   <div class="flex justify-between">
     <h5 class="text-sm md:text-xl mt-1">Para todos los gustos
       <span class="text-amber-200">{{gender()}}.</span>
     </h5>
+    <!-- Aquí montamos el carrito -->
+    <shopping-cart [isOpen]="isCartOpen()"></shopping-cart>
     <search-bar (search)="filtrarProductos($event)"></search-bar>
   </div>
 } @else if (gender() === 'women'){
@@ -12,6 +22,8 @@
     <h5 class="text-sm md:text-xl mt-1">Para todos los gustos
       <span class="text-amber-200">{{gender()}}.</span>
     </h5>
+    <!-- Aquí montamos el carrito -->
+    <shopping-cart [isOpen]="isCartOpen()"></shopping-cart>
     <search-bar (search)="filtrarProductos($event)"></search-bar>
   </div>
 } @else {
@@ -19,6 +31,8 @@
     <h5 class="text-sm md:text-xl mt-1">Para todos los gustos
       <span class="text-amber-200">{{gender()}}.</span>
     </h5>
+    <!-- Aquí montamos el carrito -->
+    <shopping-cart [isOpen]="isCartOpen()"></shopping-cart>
     <search-bar (search)="filtrarProductos($event)"></search-bar>
   </div>
 }
