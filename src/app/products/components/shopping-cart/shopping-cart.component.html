@@ -39,8 +39,8 @@
       <span class="text-gray-300 font-medium">Total:</span>
       <span class="text-xl font-bold text-green-400">${{ productsCartService.total | number }}</span>
     </div>
-    <button
-      class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white py-2 rounded-xl font-semibold shadow-lg transition transform hover:-translate-y-1"
+    <button class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white py-2 rounded-xl font-semibold shadow-lg
+                   transition transform hover:-translate-y-1" (click)="checkout()"
     >
       Finalizar Compra
     </button>

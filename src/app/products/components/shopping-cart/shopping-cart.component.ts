@@ -28,4 +28,8 @@ export class ShoppingCartComponent {
     this.isOpen = false;
     /* this.router.navigate(['/']); */
   }
+
+  checkout() {
+    this.router.navigate(['/payment']);
+  }
 }
