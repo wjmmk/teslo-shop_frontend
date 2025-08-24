@@ -6,7 +6,7 @@ import { TransLatePipe } from "../../../shared/pipes/translate.pipe";
 import { ProductsCartService } from '@products/services/products-cart.service';
 import { CurrencyPipe } from '@angular/common';
 import { ProductCarouselComponent } from '@products/components/product-carousel/product-carousel.component';
-import { ShoppingCartComponent } from '@products/components/shopping-cart/shopping-cart.component';
+import { ShoppingCartComponent } from '@store/components/shopping-cart/shopping-cart.component';
 
 @Component({
     selector: 'app-product-page',

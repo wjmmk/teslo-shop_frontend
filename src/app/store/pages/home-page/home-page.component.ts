@@ -2,12 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductCardSkeletonComponent } from '@products/components/product-card-skeleton/product-card-skeleton.component';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
-import { ShoppingCartComponent } from '@products/components/shopping-cart/shopping-cart.component';
+import { ShoppingCartComponent } from '@store/components/shopping-cart/shopping-cart.component';
 import { ProductsCartService } from '@products/services/products-cart.service';
 import { ProductsService } from '@products/services/products.service';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { PaginationService } from '@shared/components/pagination/pagination.service';
-import { SearchBarComponent } from '@shared/components/search-bar/search-bar.component';
+import { SearchBarComponent } from '@products/components/product-card-skeleton/search-bar/search-bar.component';
 import { timer, throwError } from 'rxjs';
 import { catchError, finalize, switchMap, timeout } from 'rxjs/operators';
 
