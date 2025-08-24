@@ -7,7 +7,7 @@ import { ProductsCartService } from '@products/services/products-cart.service';
 import { ProductsService } from '@products/services/products.service';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { PaginationService } from '@shared/components/pagination/pagination.service';
-import { SearchBarComponent } from '@products/components/product-card-skeleton/search-bar/search-bar.component';
+import { SearchBarComponent } from '@products/components/search-bar/search-bar.component';
 import { timer, throwError } from 'rxjs';
 import { catchError, finalize, switchMap, timeout } from 'rxjs/operators';
 
