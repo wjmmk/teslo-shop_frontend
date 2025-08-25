@@ -8,6 +8,7 @@ import { CurrencyPipe } from '@angular/common';
 import { ProductCarouselComponent } from '@products/components/product-carousel/product-carousel.component';
 import { ShoppingCartComponent } from '@store/components/shopping-cart/shopping-cart.component';
 
+
 @Component({
     selector: 'app-product-page',
     imports: [ProductCarouselComponent, ShoppingCartComponent, TransLatePipe, CurrencyPipe],
