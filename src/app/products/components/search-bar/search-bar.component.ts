@@ -1,5 +1,4 @@
-import { Component, inject, linkedSignal, signal } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
+import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '@products/interfaces/product.interface';
 import { ProductImagePipe } from '@products/pipes/product-image.pipe';
@@ -8,31 +7,27 @@ import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 
 @Component({
   selector: 'search-bar',
-  imports: [ProductImagePipe],
   templateUrl: './search-bar.component.html',
-  styleUrl: './search-bar.component.css'
+  imports: [ProductImagePipe]
 })
 export class SearchBarComponent {
-  searchTerm = signal<string>('');
-  private searchSubscription?: Subscription;
-  private inputFocused = signal(false);
-
-
+   // Agregamos el EventEmitter
+  @Output() search = new EventEmitter<string>();
   private readonly _router = inject(Router);
   private readonly _productsService = inject(ProductsService);
 
-  constructor() { }
+  // Signals
+  products = signal<Product[]>([]);
+  isLoading = signal(false);
+  private inputFocused = signal(false);
 
-  products = linkedSignal<Product[]>(() => this.filterProducts.value()?.products ?? ([] as Product[]));
+  private searchSubscription?: Subscription;
 
-  filterProducts = rxResource({
-    request: this.searchTerm,
-    loader: () => this._productsService.getAllProductsToFilter(this.searchTerm())
-  });
-
-  //De este metodo debo obtener el Id y pasarselo al API response para que busque el producto especifico.
   onSearchInput(event: Event): void {
     const term = (event.target as HTMLInputElement).value;
+
+    // Emitimos el término al padre
+    this.search.emit(term);
 
     if (this.searchSubscription) {
       this.searchSubscription.unsubscribe();
@@ -43,34 +38,30 @@ export class SearchBarComponent {
       return;
     }
 
+    this.isLoading.set(true);
+
     this.searchSubscription = this._productsService
       .getAllProductsToFilter(term)
       .pipe(
         debounceTime(300),
         distinctUntilChanged()
       )
-      .subscribe(response => {
-        this.products.set(response.products);
+      .subscribe({
+        next: (response) => {
+          this.products.set(response.products);
+          this.isLoading.set(false);
+        },
+        error: () => {
+          this.products.set([]);
+          this.isLoading.set(false);
+        }
       });
-
-    this._clearSearch();
   }
 
   goToDetails(id: string): void {
     this._router.navigate(['/product', id]);
-    this._clearSearch();
+    this.products.set([]); // Limpiar resultados al navegar
   }
-
-  ngOnDestroy(): void {
-    this.searchSubscription?.unsubscribe();
-  }
-
-  //Limpio el termino a buscar dentro de la barra de busqueda
-  private _clearSearch(): void {
-    this.searchTerm.set('');
-  }
-
-  //Referencia para el filtrado de productos.
 
   isInputFocused() {
     return this.inputFocused();
@@ -81,9 +72,13 @@ export class SearchBarComponent {
   }
 
   onBlur() {
-    // Pequeño delay para permitir que el click en los resultados funcione
     setTimeout(() => {
       this.inputFocused.set(false);
+      this.products.set([]); // Limpiar resultados al perder el foco
     }, 200);
+  }
+
+  ngOnDestroy(): void {
+    this.searchSubscription?.unsubscribe();
   }
 }
