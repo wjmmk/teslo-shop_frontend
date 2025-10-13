@@ -5,6 +5,7 @@ import { ProductCardComponent } from '@products/components/product-card/product-
 import { SearchBarComponent } from '@products/components/search-bar/search-bar.component';
 import { ProductsCartService } from '@products/services/products-cart.service';
 import { ProductsService } from '@products/services/products.service';
+import { ChatAssistantComponent } from '@shared/components/chat-assistant/chat-assistant.component';
 import { PaginationComponent } from '@shared/components/pagination/pagination.component';
 import { PaginationService } from '@shared/components/pagination/pagination.service';
 import { ShoppingCartComponent } from '@store/components/shopping-cart/shopping-cart.component';
@@ -14,7 +15,7 @@ import { catchError, finalize, switchMap, timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'home-list',
-  imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent, SearchBarComponent, ShoppingCartComponent],
+  imports: [ProductCardComponent, PaginationComponent, ProductCardSkeletonComponent, SearchBarComponent, ShoppingCartComponent, ChatAssistantComponent],
   templateUrl: './home-page.component.html'
 })
 export class HomePageComponent  {
