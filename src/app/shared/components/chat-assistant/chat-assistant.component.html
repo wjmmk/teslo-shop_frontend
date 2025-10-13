@@ -1,1 +1,51 @@
-<p>chat-assistant works!</p>
+<!-- BURBUJA FLOTANTE -->
+<div
+  class="fixed bottom-5 right-5 bg-indigo-600 text-white p-3 rounded-full cursor-pointer shadow-lg hover:bg-indigo-500 transition"
+  (click)="toggleChat()"
+>
+  💬
+</div>
+
+<!-- PANEL DEL CHAT -->
+<div
+  *ngIf="isOpen()"
+  class="fixed bottom-20 right-5 w-80 h-96 bg-white rounded-lg shadow-xl flex flex-col border border-gray-200"
+>
+  <!-- Header -->
+  <div class="flex justify-between items-center bg-indigo-600 text-white px-3 py-2 rounded-t-lg">
+    <span class="font-semibold">Asistente Virtual</span>
+    <button (click)="toggleChat()" class="text-xl leading-none">&times;</button>
+  </div>
+
+  <!-- Mensajes -->
+  <div class="flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50">
+    <div
+      *ngFor="let msg of messages()"
+      class="text-sm p-2 rounded max-w-[80%]"
+      [ngClass]="{
+        'bg-indigo-100 text-indigo-900 self-end ml-auto': msg.from === 'user',
+        'bg-gray-200 text-gray-800 self-start mr-auto': msg.from === 'bot'
+      }"
+    >
+      {{ msg.text }}
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div class="p-2 border-t border-gray-300 flex gap-2">
+    <input
+      type="text"
+      class="flex-1 text-sm text-black border border-gray-300 rounded px-2 py-1 bg-white placeholder-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-indigo-400 transition"
+      placeholder="Escribe tu mensaje..."
+      [(ngModel)]="userMessage"
+      (ngModelChange)="userMessage.set($event)"
+      (keyup.enter)="sendMessage()"
+    />
+    <button
+      class="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-500 transition text-sm"
+      (click)="sendMessage()"
+    >
+      ➤
+    </button>
+  </div>
+</div>
