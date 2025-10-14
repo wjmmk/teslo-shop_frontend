@@ -29,7 +29,7 @@ const emtyProduct: Product = {
   user: {} as User
 }
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 
 export class ProductsService {
   private http = inject(HttpClient);
@@ -37,22 +37,21 @@ export class ProductsService {
   private productsCache = new Map<string, ProductsResponse>();
   private productCache = new Map<string, Product>(); // Esto recibe en el primer parametro un (id). (11111: ⬇)
 
-  getAllProducts(options: Options):Observable<ProductsResponse> {
+  getAllProducts(options: Options): Observable<ProductsResponse> {
     const { limit = 16, offset = 0, gender = '' } = options;
-
     const key = `${limit}-${offset}-${gender}`; // Esto me crea una llave para ser utilizada en el caché-
 
-    if(this.productsCache.has(key)) {
+    if (this.productsCache.has(key)) {
       return of(this.productsCache.get(key)!)
     }
 
     return this.http.get<ProductsResponse>(`${baseUrl}/products`, {
       params: { limit, offset, gender }
     })
-    .pipe(
-      //tap((products) => console.log('Productos de la Tienda: ', products)),
-      tap((resp) => this.productsCache.set(key, resp))
-    )
+      .pipe(
+        //tap((products) => console.log('Productos de la Tienda: ', products)),
+        tap((resp) => this.productsCache.set(key, resp))
+      )
   }
 
   //Estamos manejando la busqueda de productos
@@ -75,29 +74,29 @@ export class ProductsService {
     return request;
   }
 
-  getProductByIdOrSlug(idSlug: string):Observable<Product> {
-    if(this.productCache.has(idSlug)) {
+  getProductByIdOrSlug(idSlug: string): Observable<Product> {
+    if (this.productCache.has(idSlug)) {
       return of(this.productCache.get(idSlug)!);
     }
     return this.http.get<Product>(`${baseUrl}/products/${idSlug}`)
-    .pipe(
-     // delay(2000),
-     // tap((product) => console.log('Producto de la Tienda: ', product)),
-      tap((product) => this.productCache.set(idSlug, product))
-    )
+      .pipe(
+        // delay(2000),
+        // tap((product) => console.log('Producto de la Tienda: ', product)),
+        tap((product) => this.productCache.set(idSlug, product))
+      )
   }
 
-  getProductById(id: string):Observable<Product> {
-    if(id === 'new') return of(emtyProduct); // Esto es para que no me de error al momento de crear un nuevo producto.
+  getProductById(id: string): Observable<Product> {
+    if (id === 'new') return of(emtyProduct); // Esto es para que no me de error al momento de crear un nuevo producto.
 
-    if(this.productCache.has(id)) {
+    if (this.productCache.has(id)) {
       return of(this.productCache.get(id)!);
     }
     return this.http.get<Product>(`${baseUrl}/products/${id}`)
-    .pipe(
-      tap((product) => console.log('Producto de la Tienda: ', product)),
-      tap((product) => this.productCache.set(id, product))
-    )
+      .pipe(
+        tap((product) => console.log('Producto de la Tienda: ', product)),
+        tap((product) => this.productCache.set(id, product))
+      )
   }
 
   updateProduct(id: string, productLike: Partial<Product>, imageFileList?: FileList): Observable<Product> {
@@ -122,7 +121,7 @@ export class ProductsService {
     // Actualizacion del ProductResponse.
     this.productsCache.forEach((productResponse) => {
       productResponse.products = productResponse.products.map(
-        (currentProduct) => currentProduct.id === productId  ?  product  :  currentProduct
+        (currentProduct) => currentProduct.id === productId ? product : currentProduct
       );
     });
   }
