@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductCardSkeletonComponent } from '@products/components/product-card-skeleton/product-card-skeleton.component';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
 import { SearchBarComponent } from '@products/components/search-bar/search-bar.component';
+import { Product } from '@products/interfaces/product.interface';
 import { ProductsCartService } from '@products/services/products-cart.service';
 import { ProductsService } from '@products/services/products.service';
 import { ChatAssistantComponent } from '@shared/components/chat-assistant/chat-assistant.component';
@@ -32,7 +33,6 @@ export class HomePageComponent  {
 
   products = this.productsCartService.products();
 
-  constructor() { }
 
   readonly productsResource = rxResource({
     request: () => ({ page: this.paginationService.currentPage() - 1 }),
@@ -57,6 +57,18 @@ export class HomePageComponent  {
         );
     }
   });
+
+  // con este metodo se logra agrupar la respuesta del Servicio de (3 - 3). Para aplicar el Diseño Masonry.
+  readonly productsGroupedForMasonry = computed(() => {
+    const resp = this.productsResource.value();
+    if (!resp) return [];
+    const grouped: Product[][] = [];
+    for (let i = 0; i < resp.products.length; i += 3) {
+      grouped.push(resp.products.slice(i, i + 3));
+    }
+    console.log('Resp: ', grouped)
+    return grouped;
+  })
 
   filtrarProductos(termino: string) {
     this.productosFiltrados = this.productosOriginal.filter(p =>
