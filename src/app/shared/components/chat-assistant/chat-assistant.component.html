@@ -1,6 +1,6 @@
 <!-- BURBUJA FLOTANTE -->
 <div
-  class="fixed bottom-6 right-6 bg-indigo-600 text-white p-4 text-2xl rounded-full cursor-pointer shadow-lg hover:bg-indigo-500 transition"
+  class="fixed bottom-6 right-4 bg-indigo-600 text-white p-4 text-2xl rounded-full cursor-pointer shadow-lg hover:bg-indigo-500 transition"
   (click)="toggleChat()"
 >
   💬
@@ -9,7 +9,7 @@
 <!-- PANEL DEL CHAT -->
 <div
   *ngIf="isOpen()"
-  class="fixed bottom-20 right-5 w-80 h-96 bg-white rounded-lg shadow-xl flex flex-col border border-gray-200"
+  class="fixed bottom-20 right-5 w-80 h-96 bg-white rounded-lg shadow-xl flex flex-col border border-gray-200 mb-3"
 >
   <!-- Header -->
   <div class="flex justify-between items-center bg-indigo-600 text-white px-3 py-2 rounded-t-lg">
