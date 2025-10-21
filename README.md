@@ -7,4 +7,4 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Demo
-![]([https://github.com/wjmmk/teslo-shop_frontend/tree/main/src/assets/images/View.png])
+![]([https://github.com/wjmmk/teslo-shop_frontend/blob/main/src/assets/images/View.png])
