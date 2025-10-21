@@ -1,8 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'chat-assistant',
-  imports: [],
+  imports: [FormsModule, CommonModule],
   templateUrl: './chat-assistant.component.html',
   styleUrl: './chat-assistant.component.css'
 })
@@ -17,6 +19,7 @@ export class ChatAssistantComponent {
 
   sendMessage() {
     const message = this.userMessage().trim();
+    console.log('Mensaje enviado:', message);
     if (!message) return;
 
     // Agregar el mensaje del usuario a la vista

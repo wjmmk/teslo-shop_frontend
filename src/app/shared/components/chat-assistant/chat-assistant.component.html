@@ -17,7 +17,7 @@
 
   <!-- Mensajes -->
   <div class="flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50">
-    @for (msg of messages(); track msg.from) {
+    @for (msg of messages(); track $index) {
     <div class="text-sm p-2 rounded max-w-[80%]" [ngClass]="{
             'bg-indigo-100 text-indigo-900 self-end ml-auto': msg.from === 'user',
             'bg-gray-200 text-gray-800 self-start mr-auto': msg.from === 'bot'
