@@ -1,15 +1,14 @@
-import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 
 @Component({
   selector: 'chat-assistant',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './chat-assistant.component.html',
   styleUrl: './chat-assistant.component.css'
 })
 export class ChatAssistantComponent {
   isOpen = signal(false); // Controla abrir/cerrar el chat
-  messages = signal<{ from: 'user' | 'bot', text: string }[]>([]);
+  messages = signal<{ from: 'user' | 'bot', text: string }[]>(['Bienvenido al Asistente de Chat. ¿Te ayudo a encontrar lo que buscas?'].map(text => ({ from: 'bot', text })));
   userMessage = signal('');
 
   toggleChat() {

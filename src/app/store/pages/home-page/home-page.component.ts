@@ -66,7 +66,6 @@ export class HomePageComponent  {
     for (let i = 0; i < resp.products.length; i += 3) {
       grouped.push(resp.products.slice(i, i + 3));
     }
-    console.log('Resp: ', grouped)
     return grouped;
   })
 
