@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ChatAssistantComponent {
   isOpen = signal(false); // Controla abrir/cerrar el chat
-  messages = signal<{ from: 'user' | 'bot', text: string }[]>(['Bienvenido al Asistente de Chat. ¿Te ayudo a encontrar lo que buscas?'].map(text => ({ from: 'bot', text })));
+  messages = signal<{ from: 'user' | 'bot', text: string }[]>(['Bienvenido al Asistente de Chat. ¿Estoy aqui para ayudarte a encontrar lo que buscas?'].map(text => ({ from: 'bot', text })));
   userMessage = signal('');
 
   toggleChat() {
