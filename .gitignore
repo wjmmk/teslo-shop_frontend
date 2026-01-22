@@ -6,6 +6,9 @@
 /out-tsc
 /bazel-out
 
+# AIs
+.gemini/
+
 # Node
 /node_modules
 npm-debug.log
