@@ -1,0 +1,36 @@
+import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { ProductCardComponent } from '@products/components/product-card/product-card.component';
+import { ProductsService } from '@products/services/products.service';
+import { ChatAssistantComponent } from '@shared/components/chat-assistant/chat-assistant.component';
+import { timer } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-landing-page',
+  standalone: true,
+  imports: [RouterLink, ProductCardComponent, ChatAssistantComponent],
+  templateUrl: './landing-page.component.html',
+  styles: [`
+    :host {
+      display: block;
+    }
+    .hero-bg {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/assets/images/View.png');
+      background-size: cover;
+      background-position: center;
+    }
+  `]
+})
+export class LandingPageComponent {
+  productsService = inject(ProductsService);
+
+  readonly productsResource = rxResource({
+    loader: () => {
+      return timer(0).pipe(
+        switchMap(() => this.productsService.getAllProducts({ limit: 4, offset: 0 }))
+      );
+    }
+  });
+}

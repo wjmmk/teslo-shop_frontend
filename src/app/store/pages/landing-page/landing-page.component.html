@@ -1,0 +1,87 @@
+<!-- Hero Section -->
+<section class="hero-bg rounded-3xl overflow-hidden relative h-[500px] flex items-center justify-center text-center text-white mb-16 shadow-2xl">
+  <div class="relative z-10 px-6 animate-fadeIn">
+    <h1 class="text-5xl md:text-7xl font-bold font-montserrat tracking-tight mb-4">TESLO SHOP</h1>
+    <p class="text-xl md:text-2xl font-light opacity-90 mb-8 max-w-2xl mx-auto">
+      Diseño minimalista para un futuro sostenible.
+    </p>
+    <a routerLink="/catalog" class="btn btn-primary btn-lg rounded-full px-8 text-lg font-normal tracking-wide hover:scale-105 transition-transform duration-300">
+      Ver Colección
+    </a>
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="mb-20">
+  <h2 class="text-3xl font-bold font-montserrat mb-10 text-center tracking-wide">EXPLORAR</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Men -->
+    <a routerLink="/gender/men" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer shadow-lg">
+      <img src="assets/images/Mens Cybercab Tee.jpeg" alt="Men" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end justify-center pb-8">
+        <span class="text-2xl font-bold text-white tracking-widest border-b-2 border-transparent group-hover:border-white transition-all duration-300">HOMBRES</span>
+      </div>
+    </a>
+    
+    <!-- Women -->
+    <a routerLink="/gender/women" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer shadow-lg">
+      <img src="assets/images/Cybertruck Foundation Tee.jpeg" alt="Women" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end justify-center pb-8">
+        <span class="text-2xl font-bold text-white tracking-widest border-b-2 border-transparent group-hover:border-white transition-all duration-300">MUJERES</span>
+      </div>
+    </a>
+
+    <!-- Kids/Unisex -->
+    <a routerLink="/gender/kid" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer shadow-lg">
+      <img src="assets/images/Cybertruck Foundation Tee-2.jpeg" alt="Kids" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end justify-center pb-8">
+        <span class="text-2xl font-bold text-white tracking-widest border-b-2 border-transparent group-hover:border-white transition-all duration-300">NIÑOS</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- Value Proposition -->
+<section class="mb-20 py-16 bg-base-200 rounded-3xl text-center px-6">
+  <div class="max-w-3xl mx-auto">
+    <h3 class="text-2xl md:text-3xl font-bold mb-6 font-montserrat">CALIDAD PREMIUM</h3>
+    <p class="text-lg opacity-80 leading-relaxed mb-8">
+      Cada prenda está diseñada pensando en la comodidad y la durabilidad. Utilizamos materiales de primera calidad para asegurar que tu estilo perdure en el tiempo.
+    </p>
+    <div class="flex justify-center gap-8 text-4xl opacity-50">
+      <i class="fas fa-leaf"></i> <!-- Placeholder icons if fontawesome exists, otherwise just visual space -->
+      <span class="text-sm border border-current rounded-full px-3 py-1">100% Cotton</span>
+      <span class="text-sm border border-current rounded-full px-3 py-1">Sustainable</span>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products (New Arrivals) -->
+<section class="mb-20">
+  <div class="flex justify-between items-end mb-8 px-2">
+    <h2 class="text-3xl font-bold font-montserrat tracking-wide">NOVEDADES</h2>
+    <a routerLink="/catalog" class="text-primary hover:underline underline-offset-4 decoration-2">Ver todo &rarr;</a>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    @for (product of productsResource.value()?.products; track product.id) {
+      <product-card [product]="product" />
+    }
+  </div>
+</section>
+
+<!-- Newsletter CTA -->
+<section class="relative rounded-3xl overflow-hidden bg-neutral text-neutral-content py-20 px-6 text-center">
+  <div class="relative z-10 max-w-xl mx-auto">
+    <h2 class="text-3xl font-bold mb-4 font-montserrat">Únete a la Revolución</h2>
+    <p class="mb-8 opacity-80">Suscríbete para recibir ofertas exclusivas y lanzamientos de nuevos productos.</p>
+    <div class="flex flex-col sm:flex-row gap-2">
+      <input type="email" placeholder="tu@email.com" class="input input-lg w-full bg-base-100 text-base-content" />
+      <button class="btn btn-primary btn-lg px-8">Suscribirse</button>
+    </div>
+  </div>
+  <!-- Decorative background element -->
+  <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-500 via-purple-500 to-transparent"></div>
+</section>
+
+<chat-assistant />
