@@ -17,7 +17,7 @@ import { switchMap } from 'rxjs/operators';
       display: block;
     }
     .hero-bg {
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/assets/images/View.png');
+      background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/assets/images/Mens Cybercab Tee-2.jpeg');
       background-size: cover;
       background-position: center;
     }
