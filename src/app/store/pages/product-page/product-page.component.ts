@@ -19,6 +19,7 @@ export class ProductPageComponent {
   productsService = inject(ProductsService);
   productsCartService = inject(ProductsCartService);
   isCartOpen = signal(false);
+  wasAdded = signal(false);
   rating: number = 4.5;
 
   constructor(private router: Router) { }
@@ -34,7 +35,11 @@ export class ProductPageComponent {
 
   addToCart() {
     this.productsCartService.addProduct(this.productResource.value()!);
-    //this.router.navigate(['/']);
+    this.wasAdded.set(true);
+
+    setTimeout(() => {
+      this.wasAdded.set(false);
+    }, 3000);
   }
 
   toggleCart() {
