@@ -55,22 +55,7 @@ Skills provide on-demand context and patterns for working with this codebase.
 When working on this project, Claude Code automatically loads relevant skills based on context.
 For manual loading, read the SKILL.md file directly.
 
-## Available Skills
-
-### Gentleman.Dots Specific (Repository Skills)
-
-| Skill | Description | File |
-|-------|-------------|------|
-| `gentleman-bubbletea` | Bubbletea TUI patterns, Model-Update-View, screen navigation | [SKILL.md](skills/gentleman-bubbletea/SKILL.md) |
-| `gentleman-trainer` | Vim Trainer RPG system, exercises, progression, boss fights | [SKILL.md](skills/gentleman-trainer/SKILL.md) |
-| `gentleman-installer` | Installation steps, interactive/non-interactive modes | [SKILL.md](skills/gentleman-installer/SKILL.md) |
-| `gentleman-e2e` | Docker-based E2E testing, multi-platform validation | [SKILL.md](skills/gentleman-e2e/SKILL.md) |
-| `gentleman-system` | OS detection, command execution, cross-platform support | [SKILL.md](skills/gentleman-system/SKILL.md) |
-| `go-testing` | Go testing patterns, table-driven tests, Bubbletea testing | [SKILL.md](skills/go-testing/SKILL.md) |
-
-### Generic Skills (User Installation → ~/.claude/skills/)
-
-These skills are copied to user's Claude/OpenCode config via the installer.
+### Generic Skills (User Installation → ~/.gemini/skills/)
 
 | Skill | Description | Source |
 |-------|-------------|--------|
@@ -85,42 +70,6 @@ These skills are copied to user's Claude/OpenCode config via the installer.
 | `playwright`	| Playwright E2E testing for Angular|
 | `cypress`	| Cypress component testing patterns|
 | `skill-creator`|	Create new AI agent skills|
-
-## Auto-invoke Skills
-
-When performing these actions, **ALWAYS** invoke the corresponding skill FIRST:
-
-| Action | Invoke First | Why |
-|--------|--------------|-----|
-| Adding new TUI screen | `gentleman-bubbletea` | Screen constants, Model state, Update handlers |
-| Creating Vim exercises | `gentleman-trainer` | Exercise structure, module registration, validation |
-| Adding installation step | `gentleman-installer` | Step registration, OS handling, error wrapping |
-| Writing E2E tests | `gentleman-e2e` | Test structure, Docker patterns, verification |
-| Adding OS support | `gentleman-system` | Detection priority, command execution patterns |
-| Writing Go tests | `go-testing` | Table-driven tests, teatest patterns |
-| Creating new skill | `skill-creator` | Skill structure, naming, frontmatter |
-
-## How Skills Work
-
-1. **Auto-detection**: Claude Code reads CLAUDE.md which contains skill triggers
-2. **Context matching**: When editing Go/TUI code, gentleman-bubbletea loads
-3. **Pattern application**: AI follows the exact patterns from the skill
-4. **First-time-correct**: No trial and error - skills provide exact conventions
-
-## Skill Structure
-
-```
-skills/                              # Repository-specific skills
-├── setup.sh                         # Sync script
-├── gentleman-bubbletea/SKILL.md     # TUI patterns
-├── gentleman-trainer/SKILL.md       # Vim trainer
-└── ...
-
-GentlemanClaude/skills/              # User-installable skills
-├── react-19/SKILL.md                # Copied to ~/.claude/skills/
-├── typescript/SKILL.md
-└── ...
-```
 
 ## Contributing
 
