@@ -6,13 +6,14 @@
   }
 
   @if(productResource.hasValue()) {
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
-    <!-- carrucel de Imagenes -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+    <!-- Carrusel de Imagenes -->
     <product-carousel [images]="productResource.value()!.images" />
 
     <div class="flex flex-col">
-      <div class="flex justify-evenly items-center mb-2">
-        <h2 class="test-2xl font-bold text-center pt-1 font-montserrat card-title hover:underline">
+      <!-- Encabezado: Título y Carrito -->
+      <div class="flex justify-between md:justify-evenly items-center mb-2">
+        <h2 class="text-2xl font-bold text-center pt-1 font-montserrat card-title hover:underline">
           {{ productResource.value()!.title | customTranslate }}
         </h2>
         <button (click)="toggleCart()" class="relative p-1 rounded-full bg-gray-100 hover:bg-indigo-100 transition">🛒
@@ -25,35 +26,32 @@
 
       <div class="divider"></div>
 
-      <p class="my-4">{{ productResource.value()!.description }}</p>
+      <p class="my-4 text-justify">{{ productResource.value()!.description }}</p>
 
+      <!-- Componente Carrito (Overlay) -->
+      <shopping-cart [isOpen]="isCartOpen()"></shopping-cart>
 
-        <!-- Aquí montamos el carrito -->
-        <shopping-cart [isOpen]="isCartOpen()"></shopping-cart>
+      <!-- Barra de Acciones: Botón | Precio | Estrellas -->
+      <div class="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:mt-8">
+        <!-- Botón -->
+        <button class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg
+                       text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800
+                       flex items-center justify-center w-full sm:w-auto" role="button" (click)="addToCart()">
+          <svg class="w-5 h-5 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
+          </svg>
+          Agregar al carrito
+        </button>
 
-
-      <!-- La parte textual de la vista. -->
-      <div class="mt-6 sm:gap-4 sm:justify-center sm:items-center sm:flex sm:mt-8 ">
-        <div class="flex">
-          <button class="text-white mt-4 sm:mt-0 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg
-                               text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800
-                               flex items-center justify-center" role="button" (click)="addToCart()">
-            <svg class="w-5 h-5 -ms-2 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-              fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6" />
-            </svg>
-
-            Agregar al carrito
-          </button>
+        <!-- Precio -->
+        <div class="flex items-center gap-2">
+          <h1 class="font-semibold text-gray-900 dark:text-white sm:text-lg"> Precio </h1>
+          <p class="text-2xl font-extrabold text-gray-900 dark:text-white sm:text-3xl"> {{ productResource.value()!.price | currency }} </p>
         </div>
 
-        <div class="flex items-center sm:justify-center mt-4 sm:mt-0 gap-4">
-          <h1 class="font-semibold text-gray-100 sm:text-2xl dark:text-white"> Precio </h1>
-          <p class="text-2xl flex font-extrabold text-gray-100 sm:text-3xl dark:text-white"> {{ productResource.value()!.price | currency }} </p>
-        </div>
-
-        <!-- Componente de visualización de estrellas con @for y @if (Angular 19) -->
+        <!-- Estrellas -->
         <div class="flex items-center gap-1">
           @for (star of [1, 2, 3, 4, 5]; track star) {
             @if (rating >= star) {
@@ -75,6 +73,7 @@
         </div>
       </div>
 
+      <!-- Sección de Testimonio (Restaurada dentro de la columna) -->
       <div class="mt-8 pt-4">
         <section class="dark:bg-gray-900">
           <div class="max-w-screen-xl px-4 mx-auto text-center">
