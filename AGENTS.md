@@ -47,15 +47,15 @@ Este proyecto opera bajo un estándar de **Ingeniería de Software Senior**. Tod
 > **Single Source of Truth** - This file is the master for all AI assistants.
 > Run `./skills/setup.sh` to sync to Claude, Gemini, Copilot, and Codex formats.
 
-This repository provides AI agent skills for Claude Code, OpenCode, and other AI assistants.
+This repository provides AI agent skills for Claude Code, OpenCode, gemini CLI and other AI assistants.
 Skills provide on-demand context and patterns for working with this codebase.
 
 ## Quick Start
 
-When working on this project, Claude Code automatically loads relevant skills based on context.
+When working on this project, Claude Code & gemini CLI automatically loads relevant skills based on context.
 For manual loading, read the SKILL.md file directly.
 
-### Generic Skills (User Installation → ~/.gemini/skills/)
+### Generic Skills (User Installation → .gemini/skills/)
 
 | Skill | Description | Source |
 |-------|-------------|--------|
