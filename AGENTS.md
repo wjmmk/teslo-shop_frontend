@@ -59,17 +59,17 @@ For manual loading, read the SKILL.md file directly.
 
 | Skill | Description | Source |
 |-------|-------------|--------|
-| `angular-19` |	Angular 19, Signals, Control Flow, Zoneless	|
-| `angular-router` |	Angular Router, Guard Patterns, Resolvers	|
-| `typescript`	| TypeScript patterns, types, generics	|
-| `tailwind-4`	| Tailwind CSS v4 patterns|	
-| `rx-angular`	| RxJS patterns for Angular, State management	|
-| `ngxtension`	| Utility functions for Angular Signals	|
-| `ai-sdk-5`	| Vercel AI SDK 5 with Angular providers|
-| `django-drf`	| Django REST Framework	|
-| `playwright`	| Playwright E2E testing for Angular|
-| `cypress`	| Cypress component testing patterns|
-| `skill-creator`|	Create new AI agent skills|
+| `angular-19` | Angular 19 | Signals, Control Flow, Zoneless |
+| `angular-router` | Angular Router | Guard Patterns, Resolvers	|
+| `typescript`	| TypeScript | patterns, types, generics |
+| `tailwind-4`	| Tailwind CSS | v4 patterns |	
+| `rx-angular`	| RxJS patterns for Angular | State management	|
+| `ngxtension`	| Utility | functions for Angular Signals	|
+| `ai-sdk-5`	| Vercel AI SDK 5 with Angular providers | |
+| `django-drf`	| Django | REST Framework |
+| `playwright`	| Playwright | E2E testing for Angular |
+| `cypress`	| Cypress | component testing patterns |
+| `skill-creator`| Create new AI agent skills| |
 
 ## Contributing
 
