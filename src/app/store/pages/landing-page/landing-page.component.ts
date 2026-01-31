@@ -3,14 +3,13 @@ import { RouterLink } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
 import { ProductsService } from '@products/services/products.service';
-import { ChatAssistantComponent } from '@shared/components/chat-assistant/chat-assistant.component';
 import { timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing-page',
   standalone: true,
-  imports: [RouterLink, ProductCardComponent, ChatAssistantComponent],
+  imports: [RouterLink, ProductCardComponent],
   templateUrl: './landing-page.component.html',
   styles: [`
     :host {
