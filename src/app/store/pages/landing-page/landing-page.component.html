@@ -12,18 +12,15 @@
       <a routerLink="/catalog" class="btn btn-primary btn-lg rounded-full px-10 text-lg uppercase tracking-widest shadow-lg hover:shadow-primary/50 transition-all duration-300">
         Comprar Ahora
       </a>
-      <!-- <button class="btn btn-outline btn-secondary btn-lg rounded-full px-10 text-lg uppercase tracking-widest border-2">
-        Ver Video
-      </button> -->
     </div>
   </div>
 </div>
 
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-4 relative z-10">
 
   <!-- Features Section -->
   <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24 -mt-20 relative z-20">
-    <div class="bg-base-200 p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 text-center border-b-4 border-primary">
+    <div class="bg-base-200/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 text-center border-b-4 border-primary">
       <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
           <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
@@ -33,7 +30,7 @@
       <p class="opacity-70">En todos los pedidos superiores a $100. Entrega rápida y asegurada.</p>
     </div>
 
-    <div class="bg-base-200 p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 text-center border-b-4 border-secondary">
+    <div class="bg-base-200/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 text-center border-b-4 border-secondary">
       <div class="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mx-auto mb-6 text-secondary">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" />
@@ -43,7 +40,7 @@
       <p class="opacity-70">Transacciones 100% seguras con encriptación de grado militar.</p>
     </div>
 
-    <div class="bg-base-200 p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 text-center border-b-4 border-accent">
+    <div class="bg-base-200/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl hover:-translate-y-2 transition-transform duration-300 text-center border-b-4 border-accent">
       <div class="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-6 text-accent">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
           <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
@@ -57,8 +54,8 @@
   <!-- Categories / Collections -->
   <section class="mb-24">
     <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold font-montserrat mb-4">Nuestras Colecciones</h2>
-      <p class="text-lg opacity-60 max-w-2xl mx-auto">Explora nuestras líneas exclusivas diseñadas para cada estilo de vida.</p>
+      <h2 class="text-4xl font-bold font-montserrat mb-4 text-white">Nuestras Colecciones</h2>
+      <p class="text-lg opacity-60 max-w-2xl mx-auto text-gray-300">Explora nuestras líneas exclusivas diseñadas para cada estilo de vida.</p>
     </div>
     
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -101,19 +98,21 @@
   <section class="mb-24">
     <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-base-300 pb-4">
       <div>
-        <h2 class="text-4xl font-bold font-montserrat mb-2">Tendencias</h2>
-        <p class="text-lg opacity-60">Lo más vendido esta semana</p>
+        <h2 class="text-4xl font-bold font-montserrat mb-2 text-white">Tendencias</h2>
+        <p class="text-lg opacity-60 text-gray-300">Lo más vendido esta semana</p>
       </div>
-      <a routerLink="/catalog" class="btn btn-ghost hover:bg-base-200 group">
+      <a routerLink="/catalog" class="btn btn-ghost hover:bg-base-200 group text-white">
         Ver todo el catálogo 
         <span class="group-hover:translate-x-1 transition-transform inline-block">&rarr;</span>
       </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      @for (product of productsResource.value()?.products; track product.id) {
-        <div class="transform hover:-translate-y-2 transition-all duration-300">
-          <product-card [product]="product" />
+    <div class="mb-8">
+      @if (productsResource.value()?.products; as products) {
+        <app-trending-carousel [products]="products" />
+      } @else {
+        <div class="flex justify-center p-12">
+          <span class="loading loading-spinner loading-lg text-primary"></span>
         </div>
       }
     </div>
@@ -121,12 +120,6 @@
 
   <!-- Newsletter / CTA -->
   <section class="relative rounded-[2.5rem] overflow-hidden bg-neutral py-24 px-6 text-center mb-16 isolate">
-    <!-- Abstract Background Shapes -->
-    <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-      <div class="absolute top-0 left-1/4 w-96 h-96 bg-primary/30 rounded-full blur-3xl mix-blend-screen animate-pulse"></div>
-      <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/30 rounded-full blur-3xl mix-blend-screen animate-pulse animation-delay-2000"></div>
-    </div>
-
     <div class="max-w-2xl mx-auto relative z-10">
       <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 font-montserrat">No te pierdas nada</h2>
       <p class="text-lg text-gray-300 mb-10 leading-relaxed">
@@ -139,7 +132,7 @@
           Suscribirse
         </button>
       </form>
-      <p class="text-xs text-gray-500 mt-4">Al suscribirte aceptas nuestros términos y condiciones.</p>
+      <p class="text-xs text-gray-500 mt-4 relative z-10">Al suscribirte aceptas nuestros términos y condiciones.</p>
     </div>
   </section>
 
