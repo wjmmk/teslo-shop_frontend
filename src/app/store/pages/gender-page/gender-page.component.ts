@@ -20,12 +20,13 @@ import { catchError, finalize, switchMap, timeout } from 'rxjs/operators';
 export class GenderPageComponent {
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
-  isCartOpen = signal(false);
-
+  
   route = inject(ActivatedRoute);
   productsService = inject(ProductsService);
   productsCartService = inject(ProductsCartService);
   paginationService = inject(PaginationService);
+  
+  isCartOpen = this.productsCartService.isCartOpen;
 
   productosOriginal: any[] = [];
   productosFiltrados: any[] = [];

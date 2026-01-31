@@ -13,9 +13,9 @@ import { ProductsCartService } from '@products/services/products-cart.service';
   styleUrl: './shopping-cart.component.css'
 })
 export class ShoppingCartComponent {
-  @Input() isOpen = false; // Para controlar la visibilidad del carrito
   productsCartService = inject(ProductsCartService);
   products = this.productsCartService.products;
+  isOpen = this.productsCartService.isCartOpen;
 
   constructor(private router: Router) { }
 
@@ -25,7 +25,7 @@ export class ShoppingCartComponent {
   }
 
   closeCart() {
-    this.isOpen = false;
+    this.productsCartService.closeCart();
     /* this.router.navigate(['/']); */
   }
 

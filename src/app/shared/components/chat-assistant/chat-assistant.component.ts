@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ProductsCartService } from '@products/services/products-cart.service';
 
 @Component({
   selector: 'chat-assistant',
@@ -9,6 +10,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './chat-assistant.component.css'
 })
 export class ChatAssistantComponent {
+  productsCartService = inject(ProductsCartService);
   isOpen = signal(false); // Controla abrir/cerrar el chat
   messages = signal<{ from: 'user' | 'bot', text: string }[]>(['Bienvenido al Asistente de Chat. ¿Estoy aqui para ayudarte a encontrar lo que buscas?'].map(text => ({ from: 'bot', text })));
   userMessage = signal('');

@@ -6,6 +6,7 @@ import { Product } from '@products/interfaces/product.interface';
 })
 export class ProductsCartService {
   products = signal<Product[]>([]);
+  isCartOpen = signal(false);
 
   cartItemCount = computed(() => {
     return this.products().reduce((acc, p) => acc + p.stock, 0);
@@ -13,6 +14,17 @@ export class ProductsCartService {
 
   constructor() { }
 
+  toggleCart() {
+    this.isCartOpen.update(v => !v);
+  }
+
+  openCart() {
+    this.isCartOpen.set(true);
+  }
+
+  closeCart() {
+    this.isCartOpen.set(false);
+  }
 
   addProduct(product: Product): void {
     const existing = this.products().find(p => p.id === product.id);

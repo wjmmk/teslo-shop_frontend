@@ -21,13 +21,12 @@ import { catchError, finalize, switchMap, timeout } from 'rxjs/operators';
 export class HomePageComponent  {
   readonly isLoading = signal(true);
   readonly hasError = signal(false);
-  isCartOpen = signal(false);
+  productsService = inject(ProductsService);
+  productsCartService = inject(ProductsCartService);
+  isCartOpen = this.productsCartService.isCartOpen;
 
   productosOriginal: any[] = [];
   productosFiltrados: any[] = [];
-
-  productsService = inject(ProductsService);
-  productsCartService = inject(ProductsCartService);
   paginationService = inject(PaginationService);
 
   products = this.productsCartService.products();

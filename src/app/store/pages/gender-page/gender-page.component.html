@@ -14,7 +14,7 @@
       <span class="text-amber-200">{{gender()}}.</span>
     </h5>
     <!-- Aquí montamos el carrito -->
-    <shopping-cart [isOpen]="isCartOpen()"></shopping-cart>
+    <shopping-cart></shopping-cart>
     <search-bar (search)="filtrarProductos($event)"></search-bar>
   </div>
 } @else if (gender() === 'women'){
@@ -23,7 +23,7 @@
       <span class="text-amber-200">{{gender()}}.</span>
     </h5>
     <!-- Aquí montamos el carrito -->
-    <shopping-cart [isOpen]="isCartOpen()"></shopping-cart>
+    <shopping-cart></shopping-cart>
     <search-bar (search)="filtrarProductos($event)"></search-bar>
   </div>
 } @else {
@@ -32,7 +32,7 @@
       <span class="text-amber-200">{{gender()}}.</span>
     </h5>
     <!-- Aquí montamos el carrito -->
-    <shopping-cart [isOpen]="isCartOpen()"></shopping-cart>
+    <shopping-cart></shopping-cart>
     <search-bar (search)="filtrarProductos($event)"></search-bar>
   </div>
 }

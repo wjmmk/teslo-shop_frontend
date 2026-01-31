@@ -1,6 +1,7 @@
 <!-- BURBUJA FLOTANTE -->
 <div
   class="fixed bottom-8 right-8 z-50 bg-primary text-white w-14 h-14 rounded-2xl cursor-pointer shadow-[0_0_20px_rgba(99,102,241,0.5)] hover:shadow-[0_0_30px_rgba(99,102,241,0.8)] transition-all duration-300 flex items-center justify-center group border border-white/20 active:scale-90"
+  [class.hidden]="productsCartService.isCartOpen()"
   (click)="toggleChat()"
 >
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 group-hover:rotate-12 transition-transform">

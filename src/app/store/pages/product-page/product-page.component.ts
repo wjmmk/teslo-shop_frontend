@@ -18,7 +18,7 @@ export class ProductPageComponent {
   activatedRoute = inject(ActivatedRoute);
   productsService = inject(ProductsService);
   productsCartService = inject(ProductsCartService);
-  isCartOpen = signal(false);
+  isCartOpen = this.productsCartService.isCartOpen;
   wasAdded = signal(false);
   rating: number = 4.5;
 
