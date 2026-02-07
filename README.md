@@ -9,7 +9,7 @@
 ---
 
 ## 📸 Demo
-![Project Preview](https://github.com/wjmmk/teslo-shop_frontend/blob/main/src/assets/images/View.png)
+![Project Preview](https://github.com/wjmmk/teslo-shop_frontend/blob/main/src/assets/images/Landing.png)
 
 ---
 
