@@ -22,7 +22,7 @@ export class ChatService {
 
   askQuestion(question: string): Observable<ChatResponse> {
     return this.http.post<ChatResponse>(`${this.apiUrl}/ask`, {
-      question,
+      question
     });
   }
 }

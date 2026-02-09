@@ -81,7 +81,6 @@ export class ChatAssistantComponent {
     try {
       // 4. Llamar al servicio real de Gemini
       const response = await firstValueFrom(this.chatService.askQuestion(message));
-
       // 5. Reemplazar mensaje de "escribiendo..." con respuesta real
       this.messages.update((msgs) => {
         const newMessages = [...msgs];
