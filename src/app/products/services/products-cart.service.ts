@@ -1,18 +1,49 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, effect, Injectable, signal } from '@angular/core';
 import { Product } from '@products/interfaces/product.interface';
+
+const CART_STORAGE_KEY = 'teslo_cart';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsCartService {
-  products = signal<Product[]>([]);
+  products = signal<Product[]>(this.loadCartFromStorage());
   isCartOpen = signal(false);
 
   cartItemCount = computed(() => {
     return this.products().reduce((acc, p) => acc + p.stock, 0);
   });
 
-  constructor() { }
+  constructor() {
+    // Persistencia automática en localStorage
+    effect(() => {
+      this.saveCartToStorage(this.products());
+    });
+  }
+
+  /**
+   * Carga el carrito desde localStorage
+   */
+  private loadCartFromStorage(): Product[] {
+    try {
+      const stored = localStorage.getItem(CART_STORAGE_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+      console.error('Error loading cart from storage:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Guarda el carrito en localStorage
+   */
+  private saveCartToStorage(products: Product[]): void {
+    try {
+      localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(products));
+    } catch (error) {
+      console.error('Error saving cart to storage:', error);
+    }
+  }
 
   toggleCart() {
     this.isCartOpen.update(v => !v);
@@ -60,5 +91,34 @@ export class ProductsCartService {
 
   get total(): number {
     return this.products().reduce((acc, p) => acc + p.price * p.stock, 0);
+  }
+
+  /**
+   * Limpia el carrito completamente
+   */
+  clearCart(): void {
+    this.products.set([]);
+    localStorage.removeItem(CART_STORAGE_KEY);
+  }
+
+  /**
+   * Obtiene el subtotal sin impuestos
+   */
+  get subtotal(): number {
+    return this.total;
+  }
+
+  /**
+   * Calcula impuestos (16% IVA)
+   */
+  get tax(): number {
+    return this.subtotal * 0.16;
+  }
+
+  /**
+   * Calcula el total con impuestos
+   */
+  get totalWithTax(): number {
+    return this.subtotal + this.tax;
   }
 }
