@@ -1,0 +1,65 @@
+/* Payment Component Styles */
+
+/* Animación de entrada suave */
+:host {
+  display: block;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Efecto de brillo en inputs al focus */
+.input:focus {
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Animación del botón de pago */
+.btn-primary:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(34, 211, 238, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* Estilo para tarjetas de producto en el resumen */
+.card-body > div > div {
+  transition: transform 0.2s ease;
+}
+
+.card-body > div > div:hover {
+  transform: scale(1.02);
+}
+
+/* Animación del spinner de carga */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Efecto de pulso en el badge de seguridad */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Scrollbar personalizado para lista de productos */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: rgba(31, 41, 55, 0.5);
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(34, 211, 238, 0.5);
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 211, 238, 0.7);
+}
