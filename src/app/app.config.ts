@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { loggingInterceptor } from '@shared/interceptors/logging.interceptor';
 import { authInterceptor } from '@auth/interceptors/auth.interceptor';
+import { sanitizationInterceptor } from '@shared/interceptors/sanitization.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,9 +14,9 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(  // permite realizar peticiones asyncronas hacia el servidor.
       withFetch(),
       withInterceptors([
-        // interceptors para loggear las peticiones https.
-        loggingInterceptor,
-        authInterceptor
+        sanitizationInterceptor, // Sanitiza inputs para prevenir XSS
+        loggingInterceptor,      // Loggea peticiones HTTP
+        authInterceptor          // Inyecta JWT token
       ])
     ),
   ]
