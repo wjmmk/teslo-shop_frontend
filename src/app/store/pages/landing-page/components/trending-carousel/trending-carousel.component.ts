@@ -21,7 +21,7 @@ register();
       init="false"
     >
       @for (product of products(); track product.id) {
-        <swiper-slide class="h-auto p-4 overflow-visible">
+        <swiper-slide class="h-auto p-2 overflow-visible">
            <div class="trending-card-wrapper group">
              <product-card [product]="product" class="block h-full transition-all duration-500 rounded-2xl overflow-hidden" />
            </div>
@@ -31,16 +31,25 @@ register();
   `,
 
   styles: [`
+    :host {
+      display: block;
+      width: calc(100% + 20px);
+      margin-left: -10px;
+      overflow: visible;
+    }
+
     swiper-container {
       width: 100%;
       padding-top: 20px;
       padding-bottom: 50px;
+      overflow: visible;
     }
 
     swiper-slide {
-      width: 300px;
+      width: 308px;
       height: auto;
       transition: transform 0.5s ease;
+      overflow: visible;
     }
 
     .trending-card-wrapper {
@@ -95,6 +104,7 @@ export class TrendingCarouselComponent implements AfterViewInit {
     slidesPerView: 1,
     spaceBetween: 20,
     loop: true,
+    watchSlidesProgress: true,
     autoplay: {
       delay: 2500,
       disableOnInteraction: false,
@@ -111,7 +121,7 @@ export class TrendingCarouselComponent implements AfterViewInit {
       },
       768: {
         slidesPerView: 3,
-        spaceBetween: 30,
+        spaceBetween: 25,
       },
       1024: {
         slidesPerView: 4,

@@ -24,12 +24,7 @@ import { TrendingCarouselComponent } from './components/trending-carousel/trendi
       height: 100%;
       object-fit: cover;
       z-index: 0;
-    }
-    .landing-container {
-      position: relative;
-      min-height: 100vh;
-      overflow: hidden;
-      background: transparent;
+      background-color: #000;
     }
   `]
 })
