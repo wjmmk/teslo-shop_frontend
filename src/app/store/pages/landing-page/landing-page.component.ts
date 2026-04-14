@@ -16,10 +16,14 @@ import { TrendingCarouselComponent } from './components/trending-carousel/trendi
       display: block;
       position: relative;
     }
-    .hero-bg {
-      background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/assets/images/Mens Cybercab Tee-2.jpeg');
-      background-size: cover;
-      background-position: center;
+    .video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
     }
     .landing-container {
       position: relative;

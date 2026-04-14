@@ -17,16 +17,19 @@ register();
   template: `
     <swiper-container
       #swiper
-      class="mySwiper pb-12"
-      init="false" 
+      class="mySwiper pb-12 overflow-visible"
+      init="false"
     >
       @for (product of products(); track product.id) {
-        <swiper-slide class="h-auto">
-           <product-card [product]="product" />
+        <swiper-slide class="h-auto p-4 overflow-visible">
+           <div class="trending-card-wrapper group">
+             <product-card [product]="product" class="block h-full transition-all duration-500 rounded-2xl overflow-hidden" />
+           </div>
         </swiper-slide>
       }
     </swiper-container>
   `,
+
   styles: [`
     swiper-container {
       width: 100%;
@@ -35,10 +38,50 @@ register();
     }
 
     swiper-slide {
-      background-position: center;
-      background-size: cover;
       width: 300px;
       height: auto;
+      transition: transform 0.5s ease;
+    }
+
+    .trending-card-wrapper {
+      position: relative;
+      border-radius: 1rem;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 100%;
+    }
+    
+    .trending-card-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      background: linear-gradient(45deg, #6366f1, #ec4899, #6366f1);
+      z-index: -1;
+      border-radius: 1.25rem;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      filter: blur(15px);
+    }
+    
+    .trending-card-wrapper:hover {
+      transform: translateY(-12px) scale(1.03);
+    }
+
+    .trending-card-wrapper:hover::after {
+      opacity: 0.5;
+    }
+
+    /* Target the image inside product-card for a zoom effect */
+    .trending-card-wrapper:hover img {
+      transform: scale(1.1);
+    }
+
+    product-card img {
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    /* Target the card body for a slight color shift */
+    .trending-card-wrapper:hover .card-body {
+      background-color: rgba(15, 23, 42, 0.9) !important; /* Slightly lighter slate */
     }
   `],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
