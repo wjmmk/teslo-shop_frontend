@@ -1,4 +1,4 @@
-import { SlicePipe } from '@angular/common';
+import { SlicePipe, CurrencyPipe } from '@angular/common';
 import { Component, computed, input, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { environment } from '@environments/environment.development';
@@ -8,7 +8,7 @@ import { TransLatePipe } from '@shared/pipes/translate.pipe';
 
 @Component({
     selector: 'product-card',
-    imports: [RouterLink, SlicePipe, ProductImagePipe, TransLatePipe],
+    imports: [RouterLink, SlicePipe, ProductImagePipe, TransLatePipe, CurrencyPipe],
     templateUrl: './product-card.component.html'
 })
 export class ProductCardComponent {
