@@ -22,6 +22,7 @@ export class ProductCardComponent {
   baseUrl = environment.baseUrl;
   productsArray: Product[] = [];
   visualRating: number = 0;
+  logArray: number[] = [1,2,3,4,5];
 
   // Si el product viene como Input, es buena práctica recalcular si cambia
   ngOnChanges(changes: SimpleChanges): void {

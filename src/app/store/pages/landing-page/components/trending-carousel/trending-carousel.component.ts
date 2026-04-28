@@ -72,7 +72,7 @@ register();
     }
     
     .trending-card-wrapper:hover {
-      transform: translateY(-12px) scale(1.03);
+      transform: translateY(-1px) scale(1.03);
     }
 
     .trending-card-wrapper:hover::after {

@@ -11,7 +11,7 @@
     <div class="flex card-actions justify-between items-center">
       <!-- Componente de visualización de estrellas con @for y @if (Angular 19) -->
         <div class="flex items-center gap-1">
-          @for (star of [1, 2, 3, 4, 5]; track star) {
+          @for (star of logArray; track star) {
             @if (visualRating >= star) {
               <svg class="w-3 h-3 text-yellow-400 fill-current" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                 viewBox="0 0 20 20">
