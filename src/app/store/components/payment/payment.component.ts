@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductsCartService } from '@products/services/products-cart.service';
 import { PaymentService } from '@products/services/payment.service';
-import { CardValidator } from '@shared/utils/card-validator';
-import { InputSanitizer } from '@shared/utils/input-sanitizer';
+import { CardValidator } from 'src/app/Utils/card-validator';
+import { InputSanitizer } from 'src/app/Utils/input-sanitizer';
 import { PaymentRequest, PaymentStatus } from '@shared/interfaces/payment.interface';
 import { ProductImagePipe } from '@products/pipes/product-image.pipe';
 

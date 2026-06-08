@@ -9,7 +9,7 @@ import { AboutComponent } from "./pages/about/about.component";
 import { PaymentComponent } from "./components/payment/payment.component";
 
 
-export const stroreRoutes: Routes = [
+const stroreRoutes: Routes = [
   {
     path: "",
     component: StoreFrontLayoutComponent,

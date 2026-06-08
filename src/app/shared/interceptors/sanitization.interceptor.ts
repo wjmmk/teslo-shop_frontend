@@ -1,5 +1,5 @@
 import { HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { InputSanitizer } from '@shared/utils/input-sanitizer';
+import { InputSanitizer } from 'src/app/Utils/input-sanitizer';
 
 /**
  * Interceptor de sanitización para prevenir XSS
