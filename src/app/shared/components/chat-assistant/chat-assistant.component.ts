@@ -151,12 +151,12 @@ export class ChatAssistantComponent {
    * Scroll automático al último mensaje
    */
   private scrollToBottom() {
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       const chatContainer = document.querySelector('.chat-messages');
       if (chatContainer) {
         chatContainer.scrollTop = chatContainer.scrollHeight;
       }
-    }, 100);
+    });
   }
 
   /**

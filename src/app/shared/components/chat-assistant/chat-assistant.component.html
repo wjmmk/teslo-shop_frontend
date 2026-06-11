@@ -36,7 +36,7 @@
   </div>
 
   <!-- Mensajes -->
-  <div class="flex-1 overflow-y-auto p-6 space-y-4 bg-transparent custom-scrollbar">
+  <div class="flex-1 overflow-y-auto p-6 space-y-4 bg-transparent custom-scrollbar chat-messages">
     @for (msg of messages(); track $index) {
     <div class="flex flex-col" [ngClass]="{'items-end': msg.from === 'user', 'items-start': msg.from === 'bot'}">
       <div class="max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed" 
