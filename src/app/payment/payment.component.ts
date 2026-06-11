@@ -3,11 +3,14 @@ import { FormBuilder, ReactiveFormsModule, Validators, AbstractControl, Validati
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductsCartService } from '@products/services/products-cart.service';
-import { PaymentService } from '@products/services/payment.service';
+import { PaymentService } from 'src/app/payment/services/payment.service';
+import { MercadoPagoService } from 'src/app/payment/services/mercadopago.service';
 import { CardValidator } from 'src/app/Utils/card-validator';
 import { InputSanitizer } from 'src/app/Utils/input-sanitizer';
 import { PaymentRequest, PaymentStatus } from '@shared/interfaces/payment.interface';
 import { ProductImagePipe } from '@products/pipes/product-image.pipe';
+import { environment } from '@environments/environment';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-payment',
@@ -20,20 +23,22 @@ export class PaymentComponent {
   private router = inject(Router);
   private cartService = inject(ProductsCartService);
   private paymentService = inject(PaymentService);
+  private mercadopagoService = inject(MercadoPagoService);
 
-  // Signals para estado reactivo
+  mercadopagoPublicKey = environment.mercadopagoPublicKey;
+
+  paymentMethod = signal<'mercadopago' | 'card'>('mercadopago');
+
   cardBrand = signal<'visa' | 'mastercard' | 'amex' | 'discover' | 'unknown'>('unknown');
   isProcessing = signal(false);
   paymentError = signal<string | null>(null);
   showSuccess = signal(false);
 
-  // Computed values del carrito
   cartProducts = this.cartService.products;
   subtotal = computed(() => this.cartService.subtotal);
   tax = computed(() => this.cartService.tax);
   total = computed(() => this.cartService.totalWithTax);
 
-  // Formulario de pago con validaciones
   paymentForm = this.fb.group({
     cardHolder: ['', [Validators.required, Validators.minLength(3), this.nameValidator]],
     cardNumber: ['', [Validators.required, this.cardNumberValidator.bind(this)]],
@@ -41,62 +46,46 @@ export class PaymentComponent {
     cvv: ['', [Validators.required, this.cvvValidator.bind(this)]]
   });
 
-  /**
-   * Validador personalizado para nombre del titular
-   */
   private nameValidator(control: AbstractControl): ValidationErrors | null {
     const value = InputSanitizer.sanitizeString(control.value);
     const namePattern = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
-    
+
     if (!namePattern.test(value)) {
       return { invalidName: true };
     }
     return null;
   }
 
-  /**
-   * Validador personalizado para número de tarjeta
-   */
   private cardNumberValidator(control: AbstractControl): ValidationErrors | null {
     const sanitized = InputSanitizer.sanitizeCardNumber(control.value);
-    
+
     if (!CardValidator.validateCardNumber(sanitized)) {
       return { invalidCard: true };
     }
 
-    // Actualiza el brand de la tarjeta
     this.cardBrand.set(CardValidator.detectCardBrand(sanitized));
     return null;
   }
 
-  /**
-   * Validador personalizado para fecha de expiración
-   */
   private expiryDateValidator(control: AbstractControl): ValidationErrors | null {
     const sanitized = InputSanitizer.sanitizeExpiryDate(control.value);
-    
+
     if (!CardValidator.validateExpiryDate(sanitized)) {
       return { invalidExpiry: true };
     }
     return null;
   }
 
-  /**
-   * Validador personalizado para CVV
-   */
   private cvvValidator(control: AbstractControl): ValidationErrors | null {
     const sanitized = InputSanitizer.sanitizeCVV(control.value);
     const brand = this.cardBrand();
-    
+
     if (!CardValidator.validateCVV(sanitized, brand)) {
       return { invalidCVV: true };
     }
     return null;
   }
 
-  /**
-   * Formatea el número de tarjeta mientras se escribe
-   */
   onCardNumberInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     const sanitized = InputSanitizer.sanitizeCardNumber(input.value);
@@ -105,24 +94,67 @@ export class PaymentComponent {
     this.paymentForm.patchValue({ cardNumber: formatted }, { emitEvent: false });
   }
 
-  /**
-   * Formatea la fecha de expiración MM/YY
-   */
   onExpiryInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     let value = InputSanitizer.sanitizeExpiryDate(input.value);
-    
+
     if (value.length >= 2 && !value.includes('/')) {
       value = value.slice(0, 2) + '/' + value.slice(2);
     }
-    
+
     input.value = value;
     this.paymentForm.patchValue({ expiryDate: value }, { emitEvent: false });
   }
 
-  /**
-   * Procesa el pago
-   */
+  selectMethod(method: 'mercadopago' | 'card'): void {
+    this.paymentMethod.set(method);
+    this.paymentError.set(null);
+  }
+
+  async payWithMercadoPago(): Promise<void> {
+    if (this.cartProducts().length === 0) {
+      this.paymentError.set('El carrito está vacío');
+      return;
+    }
+
+    this.isProcessing.set(true);
+    this.paymentError.set(null);
+
+    try {
+      const origin = window.location.origin;
+      const hashPrefix = origin + '/#';
+
+      const response = await firstValueFrom(
+        this.mercadopagoService.createPreference({
+          items: this.cartProducts().map((p) => ({
+            id: p.id,
+            title: p.title,
+            description: p.description || p.title,
+            quantity: p.stock,
+            unit_price: p.price,
+            currency_id: 'ARS',
+            picture_url: p.images[0]
+              ? `${origin}/api/files/product/${p.images[0]}`
+              : undefined,
+          })),
+          back_urls: {
+            success: `${hashPrefix}/payment/success`,
+            failure: `${hashPrefix}/payment/failure`,
+            pending: `${hashPrefix}/payment/pending`,
+          },
+          auto_return: 'approved',
+          external_reference: `ORD-${Date.now()}`,
+        }),
+      );
+
+      window.location.href = response.initPoint;
+    } catch (error: any) {
+      console.error('[MercadoPago] Error:', error);
+      this.paymentError.set(error.message ?? 'Error al conectar con Mercado Pago');
+      this.isProcessing.set(false);
+    }
+  }
+
   async onSubmit(): Promise<void> {
     if (this.paymentForm.invalid || this.cartProducts().length === 0) {
       this.paymentForm.markAllAsTouched();
@@ -133,7 +165,7 @@ export class PaymentComponent {
     this.paymentError.set(null);
 
     const formValue = this.paymentForm.value;
-    
+
     const paymentRequest: PaymentRequest = {
       amount: this.total(),
       currency: 'USD',
@@ -158,8 +190,7 @@ export class PaymentComponent {
         this.isProcessing.set(false);
         this.showSuccess.set(true);
         this.paymentService.lastTransaction.set(response);
-        
-        // Limpia el carrito después de pago exitoso
+
         setTimeout(() => {
           this.cartService.clearCart();
           this.router.navigate(['/']);
@@ -172,32 +203,26 @@ export class PaymentComponent {
     });
   }
 
-  /**
-   * Cancela y vuelve al carrito
-   */
   goBack(): void {
     this.router.navigate(['/catalog']);
   }
 
-  /**
-   * Obtiene el mensaje de error para un campo
-   */
   getFieldError(fieldName: string): string | null {
     const field = this.paymentForm.get(fieldName);
-    
+
     if (!field || !field.touched || !field.errors) {
       return null;
     }
 
     const errors = field.errors;
-    
+
     if (errors['required']) return 'Este campo es requerido';
     if (errors['minlength']) return `Mínimo ${errors['minlength'].requiredLength} caracteres`;
     if (errors['invalidName']) return 'Nombre inválido (solo letras)';
     if (errors['invalidCard']) return 'Número de tarjeta inválido';
     if (errors['invalidExpiry']) return 'Fecha de expiración inválida o vencida';
     if (errors['invalidCVV']) return 'CVV inválido';
-    
+
     return 'Campo inválido';
   }
 }

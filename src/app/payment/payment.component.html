@@ -1,12 +1,12 @@
 <div class="min-h-screen py-8 px-4">
   <div class="max-w-6xl mx-auto">
-    
+
     <!-- Header -->
     <div class="mb-8 text-center">
       <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-2">
         Finalizar Compra
       </h1>
-      <p class="text-gray-400">Completa tu información de pago de forma segura</p>
+      <p class="text-gray-400">Completa tu pago de forma segura con Mercado Pago</p>
     </div>
 
     <!-- Success Modal -->
@@ -32,124 +32,75 @@
     }
 
     <div class="grid lg:grid-cols-3 gap-8">
-      
-      <!-- Payment Form -->
+
+      <!-- Payment Method Panel -->
       <div class="lg:col-span-2">
-        <div class="card bg-gray-800 shadow-2xl border border-gray-700">
-          <div class="card-body">
-            <h2 class="card-title text-2xl mb-6 text-white">
-              <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
-              </svg>
-              Información de Pago
-            </h2>
 
-            <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
-              
-              <!-- Card Holder Name -->
-              <div class="form-control mb-4">
-                <label class="label">
-                  <span class="label-text text-gray-300">Nombre del Titular</span>
-                </label>
-                <input 
-                  type="text" 
-                  formControlName="cardHolder"
-                  placeholder="Juan Pérez"
-                  class="input input-bordered w-full bg-gray-900 text-white border-gray-600 focus:border-cyan-500"
-                  [class.input-error]="paymentForm.get('cardHolder')?.touched && paymentForm.get('cardHolder')?.invalid"
-                />
-                @if (getFieldError('cardHolder')) {
-                  <label class="label">
-                    <span class="label-text-alt text-error">{{ getFieldError('cardHolder') }}</span>
-                  </label>
-                }
+        <!-- Method Selector -->
+        <div class="flex mb-6 bg-gray-800/50 backdrop-blur-sm rounded-2xl p-1.5 border border-white/10 shadow-lg">
+          <button
+            (click)="selectMethod('mercadopago')"
+            class="flex-1 flex items-center justify-center gap-3 py-3.5 px-4 rounded-xl font-semibold text-sm transition-all duration-300"
+            [ngClass]="paymentMethod() === 'mercadopago'
+              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 shadow-lg text-white'
+              : 'text-gray-400 hover:text-white'"
+          >
+            <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-5.5l4-4-1.41-1.41L12 12.67l-2.59-2.58L8 11.5z"/>
+            </svg>
+            Mercado Pago
+          </button>
+          <button
+            (click)="selectMethod('card')"
+            class="flex-1 flex items-center justify-center gap-3 py-3.5 px-4 rounded-xl font-semibold text-sm transition-all duration-300"
+            [ngClass]="paymentMethod() === 'card'
+              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 shadow-lg text-white'
+              : 'text-gray-400 hover:text-white'"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+            </svg>
+            Tarjeta
+          </button>
+        </div>
+
+        <!-- Mercado Pago Panel -->
+        @if (paymentMethod() === 'mercadopago') {
+          <div class="card bg-gray-800/80 backdrop-blur-sm shadow-2xl border border-white/10">
+            <div class="card-body p-8">
+              <div class="text-center mb-6">
+                <div class="mx-auto w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mb-4 shadow-lg shadow-blue-600/30">
+                  <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5.5 14.5c-.78.78-2.05.78-2.83 0l-2.67-2.67-2.67 2.67c-.78.78-2.05.78-2.83 0s-.78-2.05 0-2.83l2.67-2.67-2.67-2.67c-.78-.78-.78-2.05 0-2.83s2.05-.78 2.83 0L12 10.83l2.67-2.67c.78-.78 2.05-.78 2.83 0s.78 2.05 0 2.83L14.83 12l2.67 2.67c.78.78.78 2.05 0 2.83z"/>
+                  </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-white mb-2">Pagar con Mercado Pago</h2>
+                <p class="text-gray-400 text-sm max-w-md mx-auto">
+                  Serás redirigido al entorno seguro de Mercado Pago para completar tu pago.
+                  Aceptamos tarjetas de crédito, débito y efectivo.
+                </p>
               </div>
 
-              <!-- Card Number -->
-              <div class="form-control mb-4">
-                <label class="label">
-                  <span class="label-text text-gray-300">Número de Tarjeta</span>
-                  @if (cardBrand() !== 'unknown') {
-                    <span class="label-text-alt">
-                      <span class="badge badge-sm" 
-                            [class.badge-primary]="cardBrand() === 'visa'"
-                            [class.badge-secondary]="cardBrand() === 'mastercard'"
-                            [class.badge-accent]="cardBrand() === 'amex'">
-                        {{ cardBrand() | uppercase }}
-                      </span>
-                    </span>
-                  }
-                </label>
-                <div class="relative">
-                  <input 
-                    type="text" 
-                    formControlName="cardNumber"
-                    (input)="onCardNumberInput($event)"
-                    placeholder="1234 5678 9012 3456"
-                    maxlength="19"
-                    class="input input-bordered w-full bg-gray-900 text-white border-gray-600 focus:border-cyan-500 pr-12"
-                    [class.input-error]="paymentForm.get('cardNumber')?.touched && paymentForm.get('cardNumber')?.invalid"
-                  />
-                  <div class="absolute right-3 top-1/2 -translate-y-1/2">
-                    <svg class="w-8 h-8 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
-                    </svg>
-                  </div>
+              <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="bg-white/5 backdrop-blur-md rounded-xl p-4 text-center border border-white/5">
+                  <svg class="w-8 h-8 mx-auto mb-2 text-blue-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 14H4V6h16v12z"/>
+                    <path d="M6 10h2v2H6zm4 0h8v2h-8z"/>
+                  </svg>
+                  <p class="text-xs text-gray-400">Crédito</p>
                 </div>
-                @if (getFieldError('cardNumber')) {
-                  <label class="label">
-                    <span class="label-text-alt text-error">{{ getFieldError('cardNumber') }}</span>
-                  </label>
-                }
-              </div>
-
-              <!-- Expiry Date & CVV -->
-              <div class="grid grid-cols-2 gap-4 mb-6">
-                
-                <!-- Expiry Date -->
-                <div class="form-control">
-                  <label class="label">
-                    <span class="label-text text-gray-300">Fecha de Expiración</span>
-                  </label>
-                  <input 
-                    type="text" 
-                    formControlName="expiryDate"
-                    (input)="onExpiryInput($event)"
-                    placeholder="MM/YY"
-                    maxlength="5"
-                    class="input input-bordered w-full bg-gray-900 text-white border-gray-600 focus:border-cyan-500"
-                    [class.input-error]="paymentForm.get('expiryDate')?.touched && paymentForm.get('expiryDate')?.invalid"
-                  />
-                  @if (getFieldError('expiryDate')) {
-                    <label class="label">
-                      <span class="label-text-alt text-error">{{ getFieldError('expiryDate') }}</span>
-                    </label>
-                  }
+                <div class="bg-white/5 backdrop-blur-md rounded-xl p-4 text-center border border-white/5">
+                  <svg class="w-8 h-8 mx-auto mb-2 text-green-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 14H4V6h16v12z"/>
+                    <path d="M6 10h12v2H6zm0 4h8v2H6z"/>
+                  </svg>
+                  <p class="text-xs text-gray-400">Débito</p>
                 </div>
-
-                <!-- CVV -->
-                <div class="form-control">
-                  <label class="label">
-                    <span class="label-text text-gray-300">CVV</span>
-                    <span class="label-text-alt text-gray-500">
-                      <svg class="w-4 h-4 inline" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
-                      </svg>
-                    </span>
-                  </label>
-                  <input 
-                    type="password" 
-                    formControlName="cvv"
-                    placeholder="•••"
-                    maxlength="4"
-                    class="input input-bordered w-full bg-gray-900 text-white border-gray-600 focus:border-cyan-500"
-                    [class.input-error]="paymentForm.get('cvv')?.touched && paymentForm.get('cvv')?.invalid"
-                  />
-                  @if (getFieldError('cvv')) {
-                    <label class="label">
-                      <span class="label-text-alt text-error">{{ getFieldError('cvv') }}</span>
-                    </label>
-                  }
+                <div class="bg-white/5 backdrop-blur-md rounded-xl p-4 text-center border border-white/5">
+                  <svg class="w-8 h-8 mx-auto mb-2 text-yellow-400" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                  </svg>
+                  <p class="text-xs text-gray-400">Efectivo</p>
                 </div>
               </div>
 
@@ -163,47 +114,204 @@
                 </div>
               }
 
-              <!-- Action Buttons -->
-              <div class="flex gap-4">
-                <button 
-                  type="button"
-                  (click)="goBack()"
-                  class="btn btn-outline flex-1"
-                  [disabled]="isProcessing()"
-                >
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+              <button
+                (click)="payWithMercadoPago()"
+                class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white py-4 rounded-xl font-bold text-lg shadow-lg shadow-blue-600/25 transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                [disabled]="isProcessing() || cartProducts().length === 0"
+              >
+                @if (isProcessing()) {
+                  <span class="loading loading-spinner loading-md"></span>
+                  <span>Conectando con Mercado Pago...</span>
+                } @else {
+                  <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
                   </svg>
-                  Volver
-                </button>
-                
-                <button 
-                  type="submit"
-                  class="btn btn-primary flex-1"
-                  [disabled]="paymentForm.invalid || isProcessing() || cartProducts().length === 0"
-                >
-                  @if (isProcessing()) {
-                    <span class="loading loading-spinner"></span>
-                    Procesando...
-                  } @else {
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                    Pagar ${{ total() | number:'1.2-2' }}
-                  }
-                </button>
-              </div>
-            </form>
+                  <span>Pagar ${{ total() | number:'1.2-2' }} con Mercado Pago</span>
+                }
+              </button>
 
-            <!-- Security Badge -->
-            <div class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-400">
-              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
-              </svg>
-              <span>Pago seguro encriptado SSL</span>
+              <div class="flex items-center justify-center gap-2 mt-4 text-xs text-gray-500">
+                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                </svg>
+                <span>Pago 100% seguro procesado por Mercado Pago</span>
+              </div>
             </div>
           </div>
-        </div>
+        }
+
+        <!-- Card Form Panel -->
+        @if (paymentMethod() === 'card') {
+          <div class="card bg-gray-800 shadow-2xl border border-gray-700">
+            <div class="card-body">
+              <h2 class="card-title text-2xl mb-6 text-white">
+                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                </svg>
+                Información de Pago
+              </h2>
+
+              <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+
+                <!-- Card Holder Name -->
+                <div class="form-control mb-4">
+                  <label class="label">
+                    <span class="label-text text-gray-300">Nombre del Titular</span>
+                  </label>
+                  <input
+                    type="text"
+                    formControlName="cardHolder"
+                    placeholder="Juan Pérez"
+                    class="input input-bordered w-full bg-gray-900 text-white border-gray-600 focus:border-cyan-500"
+                    [class.input-error]="paymentForm.get('cardHolder')?.touched && paymentForm.get('cardHolder')?.invalid"
+                  />
+                  @if (getFieldError('cardHolder')) {
+                    <label class="label">
+                      <span class="label-text-alt text-error">{{ getFieldError('cardHolder') }}</span>
+                    </label>
+                  }
+                </div>
+
+                <!-- Card Number -->
+                <div class="form-control mb-4">
+                  <label class="label">
+                    <span class="label-text text-gray-300">Número de Tarjeta</span>
+                    @if (cardBrand() !== 'unknown') {
+                      <span class="label-text-alt">
+                        <span class="badge badge-sm"
+                              [class.badge-primary]="cardBrand() === 'visa'"
+                              [class.badge-secondary]="cardBrand() === 'mastercard'"
+                              [class.badge-accent]="cardBrand() === 'amex'">
+                          {{ cardBrand() | uppercase }}
+                        </span>
+                      </span>
+                    }
+                  </label>
+                  <div class="relative">
+                    <input
+                      type="text"
+                      formControlName="cardNumber"
+                      (input)="onCardNumberInput($event)"
+                      placeholder="1234 5678 9012 3456"
+                      maxlength="19"
+                      class="input input-bordered w-full bg-gray-900 text-white border-gray-600 focus:border-cyan-500 pr-12"
+                      [class.input-error]="paymentForm.get('cardNumber')?.touched && paymentForm.get('cardNumber')?.invalid"
+                    />
+                    <div class="absolute right-3 top-1/2 -translate-y-1/2">
+                      <svg class="w-8 h-8 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+                      </svg>
+                    </div>
+                  </div>
+                  @if (getFieldError('cardNumber')) {
+                    <label class="label">
+                      <span class="label-text-alt text-error">{{ getFieldError('cardNumber') }}</span>
+                    </label>
+                  }
+                </div>
+
+                <!-- Expiry Date & CVV -->
+                <div class="grid grid-cols-2 gap-4 mb-6">
+
+                  <!-- Expiry Date -->
+                  <div class="form-control">
+                    <label class="label">
+                      <span class="label-text text-gray-300">Fecha de Expiración</span>
+                    </label>
+                    <input
+                      type="text"
+                      formControlName="expiryDate"
+                      (input)="onExpiryInput($event)"
+                      placeholder="MM/YY"
+                      maxlength="5"
+                      class="input input-bordered w-full bg-gray-900 text-white border-gray-600 focus:border-cyan-500"
+                      [class.input-error]="paymentForm.get('expiryDate')?.touched && paymentForm.get('expiryDate')?.invalid"
+                    />
+                    @if (getFieldError('expiryDate')) {
+                      <label class="label">
+                        <span class="label-text-alt text-error">{{ getFieldError('expiryDate') }}</span>
+                      </label>
+                    }
+                  </div>
+
+                  <!-- CVV -->
+                  <div class="form-control">
+                    <label class="label">
+                      <span class="label-text text-gray-300">CVV</span>
+                      <span class="label-text-alt text-gray-500">
+                        <svg class="w-4 h-4 inline" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                      </span>
+                    </label>
+                    <input
+                      type="password"
+                      formControlName="cvv"
+                      placeholder="•••"
+                      maxlength="4"
+                      class="input input-bordered w-full bg-gray-900 text-white border-gray-600 focus:border-cyan-500"
+                      [class.input-error]="paymentForm.get('cvv')?.touched && paymentForm.get('cvv')?.invalid"
+                    />
+                    @if (getFieldError('cvv')) {
+                      <label class="label">
+                        <span class="label-text-alt text-error">{{ getFieldError('cvv') }}</span>
+                      </label>
+                    }
+                  </div>
+                </div>
+
+                <!-- Error Alert -->
+                @if (paymentError()) {
+                  <div class="alert alert-error mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>{{ paymentError() }}</span>
+                  </div>
+                }
+
+                <!-- Action Buttons -->
+                <div class="flex gap-4">
+                  <button
+                    type="button"
+                    (click)="goBack()"
+                    class="btn btn-outline flex-1"
+                    [disabled]="isProcessing()"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Volver
+                  </button>
+
+                  <button
+                    type="submit"
+                    class="btn btn-primary flex-1"
+                    [disabled]="paymentForm.invalid || isProcessing() || cartProducts().length === 0"
+                  >
+                    @if (isProcessing()) {
+                      <span class="loading loading-spinner"></span>
+                      Procesando...
+                    } @else {
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                      Pagar ${{ total() | number:'1.2-2' }}
+                    }
+                  </button>
+                </div>
+              </form>
+
+              <!-- Security Badge -->
+              <div class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-400">
+                <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                </svg>
+                <span>Pago seguro encriptado SSL</span>
+              </div>
+            </div>
+          </div>
+        }
       </div>
 
       <!-- Order Summary -->
@@ -216,8 +324,8 @@
             <div class="space-y-3 mb-4 max-h-64 overflow-y-auto">
               @for (product of cartProducts(); track product.id) {
                 <div class="flex gap-3 p-2 bg-gray-900 rounded-lg">
-                  <img 
-                    [src]="product.images[0] | productImage" 
+                  <img
+                    [src]="product.images[0] | productImage"
                     [alt]="product.title"
                     class="w-16 h-16 object-cover rounded"
                   />
