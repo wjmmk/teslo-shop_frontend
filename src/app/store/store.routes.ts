@@ -7,6 +7,9 @@ import { ProductPageComponent } from "./pages/product-page/product-page.componen
 import { NotFoundPageComponent } from "./pages/not-found-page/not-found-page.component";
 import { AboutComponent } from "./pages/about/about.component";
 import { PaymentComponent } from "../payment/payment.component";
+import { PaymentSuccessComponent } from "../payment/components/payment-success/payment-success.component";
+import { PaymentFailureComponent } from "../payment/components/payment-failure/payment-failure.component";
+import { PaymentPendingComponent } from "../payment/components/payment-pending/payment-pending.component";
 
 
 const stroreRoutes: Routes = [
@@ -43,6 +46,21 @@ const stroreRoutes: Routes = [
         path: "payment",
         title: 'Pago',
         component: PaymentComponent
+      },
+      {
+        path: "payment/success",
+        title: 'Pago Exitoso',
+        component: PaymentSuccessComponent
+      },
+      {
+        path: "payment/failure",
+        title: 'Pago Rechazado',
+        component: PaymentFailureComponent
+      },
+      {
+        path: "payment/pending",
+        title: 'Pago Pendiente',
+        component: PaymentPendingComponent
       },
       {
         path: "**",

@@ -1,31 +1,31 @@
 <div
-  class="fixed top-0 right-0 h-full w-80 bg-gray-900 text-white shadow-2xl transform transition-transform duration-500 ease-in-out z-[60]"
+  class="fixed top-0 right-0 h-full w-80 bg-neutral/80 backdrop-blur-xl text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform transition-transform duration-500 ease-in-out z-[60] border-l border-white/10"
   [class.translate-x-full]="!isOpen()"
 >
   <!-- Encabezado -->
-  <div class="flex justify-between items-center px-4 py-3 border-b border-gray-700">
+  <div class="flex justify-between items-center px-4 py-3 border-b border-white/10">
     <h2 class="text-lg font-bold tracking-wide">🛒 Mi Selección</h2>
-    <button class="text-gray-400 hover:text-red-400 transition" (click)="closeCart()">✖</button>
+    <button class="text-white/60 hover:text-red-400 transition" (click)="closeCart()">✖</button>
   </div>
 
   <!-- Lista de productos -->
-  <div class="p-4 space-y-4 overflow-y-auto h-[70%]">
+  <div class="p-4 space-y-4 overflow-y-auto h-[70%] custom-scrollbar">
     @if (products().length === 0) {
     <div class="text-gray-400 text-center">
       No has agregado productos todavía
     </div>
     }
     @for (product of products(); track product.id) {
-    <div class="flex items-center bg-gray-800 rounded-lg p-2 shadow-md">
+    <div class="flex items-center bg-white/5 backdrop-blur-md border border-white/5 rounded-lg p-2 shadow-md">
       <img [src]="product.images[0] | productImage" alt="producto" class="w-16 h-16 object-cover rounded-lg" />
       <div class="ml-3 flex-1">
-        <h3 class="font-semibold text-sm">{{ product.title }}</h3>
-        <p class="text-gray-400 text-xs">Cantidad: {{ product.stock }}</p>
+        <h3 class="font-semibold text-sm text-white/90">{{ product.title }}</h3>
+        <p class="text-white/40 text-xs">Cantidad: {{ product.stock }}</p>
         <p class="text-yellow-400 font-bold text-sm">
           ${{ product.price * product.stock | number }}
         </p>
       </div>
-      <button class="ml-2 text-red-500 hover:text-red-300" (click)="removeProduct(product)">
+      <button class="ml-2 text-red-400/70 hover:text-red-300 transition" (click)="removeProduct(product)">
         🗑
       </button>
     </div>
@@ -34,13 +34,13 @@
 
 
   <!-- Footer resumen -->
-  <div class="p-4 border-t border-gray-700">
+  <div class="p-4 border-t border-white/10">
     <div class="flex justify-between items-center mb-3">
-      <span class="text-gray-300 font-medium">Total:</span>
+      <span class="text-white/60 font-medium">Total:</span>
       <span class="text-xl font-bold text-green-400">${{ productsCartService.total | number }}</span>
     </div>
-    <button class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:opacity-90 text-white py-2 rounded-xl font-semibold shadow-lg
-                   transition transform hover:-translate-y-1" (click)="checkout()"
+    <button class="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white py-2 rounded-xl font-semibold shadow-lg shadow-primary/20
+                   transition transform hover:-translate-y-1 active:scale-95" (click)="checkout()"
     >
       Finalizar Compra
     </button>
