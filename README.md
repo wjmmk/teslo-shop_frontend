@@ -81,6 +81,7 @@ Run `ng build` or `npm run build` to build the project. The build artifacts will
 src/app/
 ├── admin-dashboard/  # Admin management features
 ├── auth/             # Login, register, and auth guards
+├── payment/          # Payments components, interfaces and services
 ├── products/         # Product components and services
 ├── shared/           # Reusable components, pipes, and interceptors
 ├── store/            # Public store layouts and pages
