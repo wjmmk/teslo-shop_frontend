@@ -6,8 +6,10 @@
 /out-tsc
 /bazel-out
 
+
 # AIs
 .gemini/
+.atl
 
 # Node
 /node_modules
