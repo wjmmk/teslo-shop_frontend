@@ -9,7 +9,7 @@
 
 # AIs
 .gemini/
-.atl/
+.atl
 
 # Node
 /node_modules
