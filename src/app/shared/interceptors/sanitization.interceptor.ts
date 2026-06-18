@@ -6,18 +6,23 @@ import { InputSanitizer } from 'src/app/Utils/input-sanitizer';
  * Sanitiza todos los datos enviados en peticiones HTTP
  */
 export const sanitizationInterceptor: HttpInterceptorFn = (req, next) => {
-  
+
   // Solo sanitiza peticiones POST, PUT, PATCH
   if (['POST', 'PUT', 'PATCH'].includes(req.method) && req.body) {
+    // Skip FormData (file uploads) — no se puede clonar ni sanitizar
+    if (req.body instanceof FormData) {
+      return next(req);
+    }
+
     const sanitizedBody = sanitizeObject(req.body);
-    
+
     const sanitizedReq = req.clone({
-      body: sanitizedBody
+      body: sanitizedBody,
     });
-    
+
     return next(sanitizedReq);
   }
-  
+
   return next(req);
 };
 
