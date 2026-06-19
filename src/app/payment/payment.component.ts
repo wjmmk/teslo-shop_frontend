@@ -122,7 +122,8 @@ export class PaymentComponent {
 
     try {
       const origin = window.location.origin;
-      const hashPrefix = origin + '/#';
+      //const hashPrefix = origin + '/#';
+      const hashPrefix = origin;
 
       const response = await firstValueFrom(
         this.mercadopagoService.createPreference({
@@ -132,17 +133,16 @@ export class PaymentComponent {
             description: p.description || p.title,
             quantity: p.stock,
             unit_price: p.price,
-            currency_id: 'ARS',
+            currency_id: 'USD',
             picture_url: p.images[0]
               ? `${origin}/api/files/product/${p.images[0]}`
               : undefined,
           })),
           back_urls: {
-            success: `${hashPrefix}/payment/success`,
-            failure: `${hashPrefix}/payment/failure`,
-            pending: `${hashPrefix}/payment/pending`,
+            "success": `${hashPrefix}/payment`,
+            "failure": `${hashPrefix}/payment/failure`,
+            "pending": `${hashPrefix}/payment/pending`,
           },
-          auto_return: 'approved',
           external_reference: `ORD-${Date.now()}`,
         }),
       );
