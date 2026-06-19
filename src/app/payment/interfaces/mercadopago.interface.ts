@@ -17,7 +17,7 @@ export interface MercadoPagoBackUrls {
 export interface CreatePreferenceRequest {
   items: MercadoPagoItem[];
   back_urls: MercadoPagoBackUrls;
-  auto_return: 'approved' | 'all';
+  //auto_return: 'approved' | 'all';
   external_reference: string;
   notification_url?: string;
 }

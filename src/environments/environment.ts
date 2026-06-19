@@ -1,5 +1,5 @@
 export const environment = {
-  baseUrl: 'https://nest-teslo-shop-4ifl.onrender.com/api',
+  baseUrl: 'https://teslo-shop-angular.netlify.app/api',
 
   // ── Mercado Pago ───────────────────────────────────────────
   // Reemplázala con tu Public Key real (no la Access Token).
